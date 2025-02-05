@@ -23,7 +23,6 @@ class Application
         $this->view = new View();
         DBConnector::$config = $this->config['db'];
         $this->db = DBConnector::getInstance();
-
     }
 
     public function dispatch(array $request) : void

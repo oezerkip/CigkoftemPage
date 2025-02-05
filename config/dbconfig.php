@@ -1,10 +1,10 @@
 <?php
 return [
     'db' => [
-        'host' => $_ENV['host'],
-        'user' => $_ENV['user'],
-        'password' => $_ENV['password'],
-        'dbname' => $_ENV['dbname']
+        'host' => 'localhost',
+        'user' => 'luka',
+        'password' => 'lukajana0406',
+        'dbname' => 'cigkoftemDB'
     ],
     'layout' => [
         'default_layout' => 'default'
