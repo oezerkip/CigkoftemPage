@@ -5,7 +5,6 @@ namespace library;
 class Application
 {
     const BASE_PATH = __DIR__.DIRECTORY_SEPARATOR.'../';
-    const LIBRARY_PATH = __DIR__.DIRECTORY_SEPARATOR;
     const CONFIG_PATH = self::BASE_PATH.'config'.DIRECTORY_SEPARATOR;
     const TEMPLATE_BASE_PATH = self::BASE_PATH.'templates'.DIRECTORY_SEPARATOR;
 
