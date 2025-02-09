@@ -1,0 +1,27 @@
+#foodfilter {
+    .btn {
+        @extend .btn-primary;
+        &.active {
+            @extend .btn-light;
+        }
+    }
+}
+#foodlist {
+
+    .item {
+        display: none;
+
+        &.active {
+            display: block;
+            transition: all 250ms ease;
+
+            &:hover, &:focus {
+                transform: scale(1.05);
+            }
+        }
+
+        .title {
+            color: $body-color-dark;
+        }
+    }
+}

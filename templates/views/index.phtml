@@ -1,101 +1,35 @@
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">Meine Website</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Kontakt</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<main data-bs-spy="scroll" data-bs-target="#navbarNav">
 
-<!-- Hero Section -->
-<header class="hero">
-    <div class="container">
-        <h1>Willkommen auf meiner Website</h1>
-        <p>Moderne Designs mit Bootstrap 5.3</p>
-        <a href="#services" class="btn btn-primary btn-lg">Mehr erfahren</a>
-    </div>
-</header>
+    <section id="hero" class="space d-flex flex-column justify-content-center">
+        <?php require('templates/content/hero.phtml'); ?>
+    </section>
 
-<!-- Services -->
-<section id="services" class="py-5">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-4">
-                <div class="service-icon">💡</div>
-                <h3>Kreative Ideen</h3>
-                <p>Innovative Designs für dein Business.</p>
-            </div>
-            <div class="col-md-4">
-                <div class="service-icon">⚙️</div>
-                <h3>Technologie</h3>
-                <p>Modernste Technologien für eine starke Performance.</p>
-            </div>
-            <div class="col-md-4">
-                <div class="service-icon">📞</div>
-                <h3>Support</h3>
-                <p>Wir sind rund um die Uhr für dich da.</p>
-            </div>
-        </div>
-    </div>
-</section>
+    <section id="foodcarousel" class="space">
+        <?php require('templates/content/foodcarousel.phtml'); ?>
+    </section>
 
-<!-- Portfolio -->
-<section id="portfolio" class="py-5 bg-light">
-    <div class="container text-center">
-        <h2>Unser Portfolio</h2>
-        <div class="row">
-            <div class="col-md-4"><img src="https://via.placeholder.com/350" class="img-fluid rounded" alt="Portfolio"></div>
-            <div class="col-md-4"><img src="https://via.placeholder.com/350" class="img-fluid rounded" alt="Portfolio"></div>
-            <div class="col-md-4"><img src="https://via.placeholder.com/350" class="img-fluid rounded" alt="Portfolio"></div>
-        </div>
-    </div>
-</section>
+    <section id="restaurant" class="space">
+        <?php require('templates/content/restaurant.phtml'); ?>
+    </section>
 
-<!-- Team -->
-<section id="team" class="py-5">
-    <div class="container text-center">
-        <h2>Unser Team</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <img src="https://via.placeholder.com/200" class="rounded-circle" alt="Teammitglied">
-                <h4>Max Mustermann</h4>
-                <p>CEO</p>
-            </div>
-            <div class="col-md-4">
-                <img src="https://via.placeholder.com/200" class="rounded-circle" alt="Teammitglied">
-                <h4>Lisa Beispiel</h4>
-                <p>Designer</p>
-            </div>
-            <div class="col-md-4">
-                <img src="https://via.placeholder.com/200" class="rounded-circle" alt="Teammitglied">
-                <h4>Tom Muster</h4>
-                <p>Entwickler</p>
-            </div>
-        </div>
-    </div>
-</section>
+    <section id="foodmenu" class="space">
+        <?php require('templates/content/foodmenu.phtml'); ?>
+    </section>
 
-<!-- Kontakt -->
-<section id="contact" class="py-5 bg-light">
-    <div class="container text-center">
-        <h2>Kontakt</h2>
-        <p>Schreib uns eine Nachricht!</p>
-        <a href="mailto:info@beispiel.de" class="btn btn-primary">E-Mail senden</a>
-    </div>
-</section>
+    <section id="team" class="space">
+        <?php require('templates/content/team.phtml'); ?>
+    </section>
 
-<!-- Footer -->
-<footer class="bg-dark text-white text-center py-4">
-    <p>&copy; 2025 Meine Website. Alle Rechte vorbehalten.</p>
-</footer>
+    <section id="contest" class="space">
+        <?php require('templates/content/contest.phtml'); ?>
+    </section>
 
-<script src="../../vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <section id="login" class="space">
+        <?php require('templates/content/user-registration.phtml'); ?>
+    </section>
+
+    <section id="contact" class="space-top">
+        <?php require('templates/content/contact.phtml'); ?>
+    </section>
+
+</main>

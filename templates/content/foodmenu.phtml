@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h2>Speisekarte</h2>
+        </div>
+    </div>
+    <div id="foodfilter">
+        <div class="row">
+            <div class="col-sm-12 d-flex flex-wrap justify-content-center mb-4">
+                <button type="button" class="btn d-block m-1 active" category="all"><b>All</b></button>
+                <button type="button" class="btn d-block m-1" category="menues"><b>Menüs</b></button>
+                <button type="button" class="btn d-block m-1" category="wraps"><b>Wraps</b></button>
+                <button type="button" class="btn d-block m-1" category="sweets"><b>Süßspeisen</b></button>
+                <button type="button" class="btn d-block m-1" category="drinks"><b>Getränke</b></button>
+            </div>
+        </div>
+    </div>
+    <div id="foodlist">
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
+
+           <?php for ($i=0; $i < 5; $i++): ?>
+            <a href="#" class="item active col text-center" category="menues">
+                <p class="image mb-1">
+                    <img src="src/img/food/Cigkoftem-TELLER-1200x1433.png" class="img-fluid" alt="food" />
+                </p>
+                <p class="textbox">
+                    <span class="title"><b>Food Name</b></span><br>
+                    <span class="price fw-light">25,- €</span>
+                </p>
+            </a>
+            
+            <a href="#" class="item active col text-center" category="wraps">
+                <p class="image mb-1">
+                    <img src="src/img/food/Falafel-Wrap-1200x1433.png" class="img-fluid" alt="food" />
+                </p>
+                <p class="textbox">
+                    <span class="title"><b>Food Name</b></span><br>
+                    <span class="price fw-light">25,- €</span>
+                </p>
+            </a>
+            <a href="#" class="item active col text-center" category="sweets">
+                <p class="image mb-1">
+                    <img src="src/img/food/Suffle-1200x1433.png" class="img-fluid" alt="food" />
+                </p>
+                <p class="textbox">
+                    <span class="title"><b>Food Name</b></span><br>
+                    <span class="price fw-light">25,- €</span>
+                </p>
+            </a>
+
+            <a href="#" class="item active col text-center" category="drinks">
+                <p class="image mb-1">
+                    <img src="src/img/food/Souppim-1200x1432.png" class="img-fluid" alt="food" />
+                </p>
+                <p class="textbox">
+                    <span class="title"><b>Food Name</b></span><br>
+                    <span class="price fw-light">25,- €</span>
+                </p>
+            </a>
+            <?php endfor; ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+{
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "compressed",
+            "extensionName": ".css",
+            "savePath": "~/../css"
+        }
+    ],
+    "liveSassCompile.settings.includeItems": [
+        "/src/scss/**/*.scss"
+    ],
+    "liveSassCompile.settings.excludeList": [
+        "/**/vendor/**/*.scss"
+    ],
+    "liveSassCompile.settings.generateMap": false,
+    "liveSassCompile.settings.autoprefix": ["last 2 versions", "> 1%"]
+}

@@ -2,9 +2,9 @@
 return [
     'db' => [
         'host' => 'localhost',
-        'user' => 'eugen',
+        'user' => 'test',
         'password' => '0000',
-        'dbname' => 'cigkoftemDB'
+        'dbname' => 'mysql'
     ],
     'layout' => [
         'default_layout' => 'default'
