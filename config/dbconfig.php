@@ -1,10 +1,10 @@
 <?php
 return [
     'db' => [
-        'host' => 'localhost',
-        'user' => 'test',
+        'host' => '127.0.0.1',
+        'user' => 'eugen',
         'password' => '0000',
-        'dbname' => 'mysql'
+        'dbname' => 'cigkoftemDB'
     ],
     'layout' => [
         'default_layout' => 'default'

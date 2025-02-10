@@ -72,7 +72,7 @@ $(document).ready(function () {
 });
 
 // ----------------------------------------------------------------------
-// Food-menu
+// food-menu
 // ----------------------------------------------------------------------
 $(document).ready(function () {
   let buttons = $("#foodfilter .btn");
@@ -91,11 +91,26 @@ $(document).ready(function () {
 });
 
 // ----------------------------------------------------------------------
+// food-modal
+// ----------------------------------------------------------------------
+const myModalEl = document.getElementById("foodmodal");
+foodmodal.addEventListener("show.bs.modal", (event) => {
+  console.log($(event.relatedTarget));
+  const food = $(event.relatedTarget);
+  $(".modal-title", foodmodal).html($(".title", food).html());
+  $(".modal-image", foodmodal).attr("src", $(".image img", food).attr("src"));
+  $(".modal-description", foodmodal).html($(".description", food).html());
+  $(".modal-price", foodmodal).html($(".price", food).html());
+  $(".modal-additives", foodmodal).html($(".additives", food).html());
+  $(".modal-calories", foodmodal).html($(".calories", food).html());
+});
+
+// ----------------------------------------------------------------------
 // like-button
 // ----------------------------------------------------------------------
 $(document).ready(function () {
   $(".like").click(function (event) {
-    event.preventDefault();  // Verhindert das Standardverhalten (Link-Klick)
+    event.preventDefault(); // Verhindert das Standardverhalten (Link-Klick)
     event.stopPropagation(); // Stoppt das Event, damit der übergeordnete Link nicht klickt
     $(this).toggleClass("active");
   });
