@@ -1,9 +1,9 @@
 <?php
 return [
     'db' => [
-        'host' => '127.0.0.1',
-        'user' => 'eugen',
-        'password' => '0000',
+        'host' => 'localhost',
+        'user' => 'luka',
+        'password' => 'lukajana0406',
         'dbname' => 'cigkoftemDB'
     ],
     'layout' => [
