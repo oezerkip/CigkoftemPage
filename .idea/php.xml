@@ -14,6 +14,12 @@
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/twbs/bootstrap" />
+      <path value="$PROJECT_DIR$/vendor/OwlCarousel2-2.3.4/docs" />
+      <path value="$PROJECT_DIR$/vendor/OwlCarousel2-2.3.4/dist" />
+      <path value="$PROJECT_DIR$/vendor/OwlCarousel2-2.3.4/docs_src" />
+      <path value="$PROJECT_DIR$/vendor/bootstrap-icons-1.11.3/font" />
+      <path value="$PROJECT_DIR$/vendor/OwlCarousel2-2.3.4/test" />
+      <path value="$PROJECT_DIR$/vendor/OwlCarousel2-2.3.4/src" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
