@@ -1,0 +1,23 @@
+<div class="modal fade" id="foodmodal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">
+                    {food.title}
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="{food.image}" class="modal-image img-fluid  mb-1" alt="food" />
+                <p class="modal-description">{food.description}</p>
+                <p class="modal-price">{food.price}</p>
+                <p class="modal-additives"><small>{food.additives}</small></p>
+                <p class="modal-calories"><small>{food.calories}</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                <button type="button" class="btn btn-primary">zur Bestellung hinzufügen</button>
+            </div>
+        </div>
+    </div>
+</div>

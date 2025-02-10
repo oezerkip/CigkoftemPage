@@ -19,8 +19,10 @@ class Controller
 
     public function index() : void {
         $this->view->render('index', [
-            'title' => 'Cigköftem'
+            'title' => 'Cigköftem',
+            'data' => $this->model->getData()
         ]);
+        
     }
 
     public function error() : void {

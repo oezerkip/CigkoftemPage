@@ -16,9 +16,9 @@ class View
                 /**
                  * Gegebene Layout und View Dateien einbinden
                  */
-                require Application::TEMPLATE_BASE_PATH.'layouts/'.$layout.DIRECTORY_SEPARATOR.'header.phtml';
+                require Application::TEMPLATE_BASE_PATH.'layouts/'.$layout.DIRECTORY_SEPARATOR.'head.phtml';
                 require Application::TEMPLATE_BASE_PATH.'views/'.$view.'.phtml';
-                require Application::TEMPLATE_BASE_PATH.'layouts/'.$layout.DIRECTORY_SEPARATOR.'footer.phtml';
+                require Application::TEMPLATE_BASE_PATH.'layouts/'.$layout.DIRECTORY_SEPARATOR.'foot.phtml';
             }
         }
     }

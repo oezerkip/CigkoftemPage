@@ -1,0 +1,92 @@
+.owl-carousel {
+  .owl-stage-outer {
+    mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 20%,
+      rgba(0, 0, 0, 1) 80%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  .item {
+    position: relative;
+    display: block;
+    transform: scale(0.95);
+    transition: all 250ms ease;
+
+    .textbox {
+      background: $primary;
+      color: $white;
+      border-radius: 20px;
+      padding-block: 0.5rem;
+    }
+
+    &:hover,
+    &:focus {
+      transform: scale(1);
+    }
+
+    .image {
+      position: relative;
+      z-index: 1;
+      display: block;
+    }
+
+    .like {
+      position: absolute;
+      z-index: 2;
+      display: block;
+      font-size: 2.5rem;
+      line-height: 0;
+      right: 1rem;
+      bottom: 1rem;
+      .bi-heart {
+        display: block;
+      }
+      .bi-heart-fill {
+        color: $red;
+        display: none;
+      }
+      &.active {
+        .bi-heart {
+          display: none;
+        }
+        .bi-heart-fill {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .owl-nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .owl-next,
+    .owl-prev {
+      margin: 0;
+      background: none;
+
+      &:hover {
+        background: none;
+      }
+
+      .bi {
+        font-size: 2em;
+        @include media-breakpoint-up(lg) {
+          font-size: 3em;
+        }
+        // text-shadow: 0px 0px 10px black;
+      }
+    }
+  }
+}

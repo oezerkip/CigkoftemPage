@@ -4,6 +4,7 @@ namespace library;
 
 class Model
 {
+
     protected \PDO $db;
 
     function __construct($db) {
