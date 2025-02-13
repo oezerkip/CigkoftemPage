@@ -24,56 +24,32 @@ class Controller
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function index() : void {
+//        echo ("POST:\n");
+//        echo '<pre>';
+//        var_dump($_POST);
+//        echo '</pre>';
+
         if (isset($_POST['registrationBtn'])) {
-            $formConfig = [
-                "vorname" => ["notempty"],
-                "nachname" => ["notempty"],
-                "email" => ["checkmail", "notempty"],
-                "strasse" => ["notempty"],
-                "plz" => ["isint", "zipcheck"],
-                "wohnort" => ["notempty"],
-                "passwort" => ["checkpwd", "notempty"],
-                "passwort_wiederholen" => ["password_repetition"],
-                "datenschutz" => ["isset"]
-            ];
-            $this->validator->setConfiguration($formConfig);
-            $validationResult = $this->validator->validate($_POST);
-            if($validationResult === true) {
-                if ($_REQUEST['password'] == $_REQUEST['passwordRepeat']){
-                    $uniqueMail = $this->model->uniqueMailCheck($_POST);
-                    if($uniqueMail) {
-                        $this->view->render('index', [
-                            'uniqueEmail' => true
-                        ]);
-                    } else {
-                        $this->model->registrationInsert($_POST);
-                        $this->view->render('index', []);
-                    }
-                }
-            } else {
-                $this->view->render('index', [
-                    'validationResult' => $validationResult
-                ]);
-            }
+            $this->checkRegistration();
+            return;
         }
         $this->view->render('index', []);
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    /// Error-Page
-    //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function error() : void {
-        $this->view->render('error', [
-            'title' => 'Ein Fehler ist aufgetreten'
-        ]);
+    public function impressum() {
+        $this->view->render('impressum', []);
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    /// Interne "ausgelagerte" Funktionen
-    //////////////////////////////////////////////////////////////////////////////////////////////
+    public function datenschutz() {
+        $this->view->render('datenschutz', []);
+    }
 
-    private function checkRegistration(): void {
+
+    /**** interne "ausgelagerte" Methoden *******/
+
+
+    public function checkRegistration(): void {
         $formConfig = [
             "vorname" => ["notempty"],
             "nachname" => ["notempty"],
@@ -87,13 +63,15 @@ class Controller
         ];
         $this->validator->setConfiguration($formConfig);
         $validationResult = $this->validator->validate($_POST);
-        if($validationResult === true) {
-            if ($_REQUEST['password'] == $_REQUEST['passwordRepeat']){
+        if ($validationResult === true) {
+            if ($_POST['passwort'] == $_POST['passwort_wiederholen']) {
                 $uniqueMail = $this->model->uniqueMailCheck($_POST);
-                if($uniqueMail) {
+                var_dump("uniqueMail: " . $uniqueMail);
+                if ($uniqueMail) {
                     $this->view->render('index', [
                         'uniqueEmail' => true
                     ]);
+
                 } else {
                     $this->model->registrationInsert($_POST);
                     $this->view->render('index', []);
@@ -105,8 +83,4 @@ class Controller
             ]);
         }
     }
-
-
-
-
 }

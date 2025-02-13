@@ -18,7 +18,7 @@ class Model
     }
 
     public function uniqueMailCheck(array $mailCheck): bool|array {
-        $mail = $this->db->prepare("SELECT email FROM customer WHERE e_mail=?");
+        $mail = $this->db->prepare("SELECT e_mail FROM customer WHERE e_mail=?");
         $mail->execute([$mailCheck['email']]);
         $uniqueMail = $mail->fetch(\PDO::FETCH_ASSOC);
         if($uniqueMail) {
