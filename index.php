@@ -13,7 +13,7 @@ try {
     });
 
     $app = new Application();
-    $app->dispatch($_POST);
+    $app->dispatch($_GET);
 } catch (\Exception $e) {
     var_dump($e);
     exit(1);
