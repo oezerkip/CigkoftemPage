@@ -24,18 +24,24 @@ class Controller
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function index() : void {
-//        echo ("POST:\n");
-//        echo '<pre>';
-//        var_dump($_POST);
-//        echo '</pre>';
-
         if (isset($_POST['registrationBtn'])) {
-            $this->checkRegistration();
+            $formConfig = [
+                "vorname" => ["notempty"],
+                "nachname" => ["notempty"],
+                "email" => ["checkmail", "notempty"],
+                "strasse" => ["notempty"],
+                "plz" => ["isint", "zipcheck"],
+                "wohnort" => ["notempty"],
+                "passwort" => ["checkpwd", "notempty"],
+                "passwort_wiederholen" => ["password_repetition"],
+                "datenschutz" => ["isset"]
+            ];
+            $this->checkRegistration($formConfig);
+            header('Location: /?action=index#login');
             return;
         }
         $this->view->render('index', []);
     }
-
 
     public function impressum() {
         $this->view->render('impressum', []);
@@ -53,6 +59,14 @@ class Controller
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function admin(): void {
+        if (isset($_POST['adminLoginBtn'])) {
+            $formConfig = [
+                'email' => ['notempty'],
+                'passwort' => ['notempty']
+            ];
+            $this->checkLogin($formConfig);
+            return;
+        }
         $this->view->render('admin', []);
     }
 
@@ -60,18 +74,7 @@ class Controller
     /// Interne "ausgelagerte" Funktionen
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function checkRegistration(): void {
-        $formConfig = [
-            "vorname" => ["notempty"],
-            "nachname" => ["notempty"],
-            "email" => ["checkmail", "notempty"],
-            "strasse" => ["notempty"],
-            "plz" => ["isint", "zipcheck"],
-            "wohnort" => ["notempty"],
-            "passwort" => ["checkpwd", "notempty"],
-            "passwort_wiederholen" => ["password_repetition"],
-            "datenschutz" => ["isset"]
-        ];
+    public function checkRegistration($formConfig): void {
         $this->validator->setConfiguration($formConfig);
         $validationResult = $this->validator->validate($_POST);
         if ($validationResult === true) {
@@ -93,5 +96,29 @@ class Controller
                 'validationResult' => $validationResult
             ]);
         }
+    }
+
+    public function checkLogin($formConfig): void {
+        $this->validator->setConfiguration($formConfig);
+        $validationResult = $this->validator->validate($_POST);
+        if ($validationResult === true) {
+            $adminId = $this->model->checkAdminLogin($_POST);
+            if ($adminId) {
+                $_SESSION['admin'] = $adminId;
+            } else {
+                $this->view->render("admin", [
+                    'validationResult' => 'E-Mail oder Passwort ist falsch!'
+                ]);
+            }
+        } else {
+            $this->view->render("admin", [
+                'validationResult' => $validationResult
+            ]);
+        }
+    }
+
+    public function logout(): void {
+        session_destroy();
+        $this->view->render("admin", []);
     }
 }

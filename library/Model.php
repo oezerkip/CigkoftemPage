@@ -51,4 +51,14 @@ class Model
                 $toBeInserted['wohnort']
                 ]);
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Login-Abfrage im Admin-Bereich
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function checkAdminLogin($toBeChecked) {
+        $adminId = $this->db->prepare("SELECT ID FROM admin WHERE email=? AND password=?");
+        $adminId->execute([$toBeChecked['email'], $toBeChecked['passwort']]);
+        return $adminId->fetch(\PDO::FETCH_ASSOC);
+    }
 }
