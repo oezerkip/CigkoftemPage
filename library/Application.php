@@ -31,7 +31,7 @@ class Application
         if (method_exists($controller, $action)) {
             $controller->{$action}();
         } else {
-            $controller->error();
+            $controller->index();
         }
     }
 }
