@@ -26,10 +26,10 @@ class Application
 
     public function dispatch(array $request) : void
     {
-        $page = isset($request['page'])?strtolower($request['page']):'index';
+        $action = isset($request['action'])?strtolower($request['action']):'index';
         $controller = new Controller($request, $this->view, $this->db);
-        if (method_exists($controller, $page)) {
-            $controller->{$page}();
+        if (method_exists($controller, $action)) {
+            $controller->{$action}();
         } else {
             $controller->error();
         }
