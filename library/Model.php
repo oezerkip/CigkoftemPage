@@ -53,11 +53,21 @@ class Model
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Login-Abfrage im User-Bereich
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function checkUserLogin($toBeChecked) {
+        $adminId = $this->db->prepare("SELECT ID FROM customer WHERE e_mail=? AND password=?");
+        $adminId->execute([$toBeChecked['loginEmail'], $toBeChecked['loginPasswort']]);
+        return $adminId->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
     /// Login-Abfrage im Admin-Bereich
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function checkAdminLogin($toBeChecked) {
-        $adminId = $this->db->prepare("SELECT ID FROM admin WHERE email=? AND password=?");
+        $adminId = $this->db->prepare("SELECT ID FROM admin WHERE e_mail=? AND password=?");
         $adminId->execute([$toBeChecked['email'], $toBeChecked['passwort']]);
         return $adminId->fetch(\PDO::FETCH_ASSOC);
     }

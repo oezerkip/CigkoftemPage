@@ -1,10 +1,12 @@
 <main data-bs-spy="scroll" data-bs-target="#navbarNav">
-<?php if (isset($_SESSION['user'])): ?>
+<?php if (isset($_SESSION['admin'])): ?>
+<div class="mt-5">
     <a class="nav-link" href="?action=dishManager">Gerichte verwalten</a>
     <a class="nav-link" href="?action=customerManager">Kundenverwaltung</a>
     <a class="nav-link" href="?action=accountManager">Kontoverwaltung</a>
     <a class="nav-link" href="?action=fdcManager">Funny-Contest-Verwaltung</a>
     <a href="?action=logout">Abmelden</a>
+</div>
 <?php else: ?>
     <div id="admin_login" class="space d-flex justify-content-center mt-5">
         <form method="post" action="">
@@ -20,7 +22,7 @@
                     <?php if (isset($data['validationResult']['passwort'])): ?>
                         <p class="error"><?php echo $data['validationResult']['passwort']; ?></p>
                     <?php endif ?>
-                    <button type="submit" class="btn btn-primary" name="adminLoginBtn" id="adminLoginBtn" href="">Login</button>
+                    <button type="submit" class="btn btn-primary" name="adminLoginBtn" id="adminLoginBtn">Anmelden</button>
                 </div>
             </div>
         </form>

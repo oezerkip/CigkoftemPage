@@ -24,6 +24,7 @@ class Controller
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function index() : void {
+        var_dump($_SESSION);
         if (isset($_POST['registrationBtn'])) {
             $formConfig = [
                 "vorname" => ["notempty"],
@@ -40,19 +41,26 @@ class Controller
             header('Location: /?action=index#login');
             return;
         }
+
+        if (isset($_POST['loginBtn'])) {
+//            var_dump($_SESSION).'login durchgeführt';
+            $formConfig = [
+                "loginEmail" => ["notempty"],
+                "loginPasswort" => ["notempty"]
+            ];
+            $this->checkUserLogin($formConfig);
+            return;
+        }
+
+        if (isset($_POST['logoutBtn'])) {
+//            var_dump($_SESSION).'logout durchgeführt';
+            session_destroy();
+            $this->view->render("index", []);
+            return;
+        }
+
         $this->view->render('index', []);
     }
-
-    public function impressum() {
-        $this->view->render('impressum', []);
-    }
-
-    public function datenschutz() {
-        $this->view->render('datenschutz', []);
-    }
-
-
-    /**** interne "ausgelagerte" Methoden *******/
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     /// Admin-Page
@@ -64,11 +72,25 @@ class Controller
                 'email' => ['notempty'],
                 'passwort' => ['notempty']
             ];
-            $this->checkLogin($formConfig);
+            $this->checkAdminLogin($formConfig);
             return;
         }
+
         $this->view->render('admin', []);
     }
+
+    public function impressum() {
+        $this->view->render('impressum', []);
+    }
+
+    public function datenschutz() {
+        $this->view->render('datenschutz', []);
+    }
+
+
+
+
+    /**** interne "ausgelagerte" Methoden *******/
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     /// Interne "ausgelagerte" Funktionen
@@ -80,12 +102,10 @@ class Controller
         if ($validationResult === true) {
             if ($_POST['passwort'] == $_POST['passwort_wiederholen']) {
                 $uniqueMail = $this->model->uniqueMailCheck($_POST);
-                var_dump("uniqueMail: " . $uniqueMail);
                 if ($uniqueMail) {
                     $this->view->render('index', [
                         'uniqueEmail' => true
                     ]);
-
                 } else {
                     $this->model->registrationInsert($_POST);
                     $this->view->render('index', []);
@@ -98,13 +118,16 @@ class Controller
         }
     }
 
-    public function checkLogin($formConfig): void {
+    public function checkAdminLogin($formConfig): void {
         $this->validator->setConfiguration($formConfig);
         $validationResult = $this->validator->validate($_POST);
         if ($validationResult === true) {
             $adminId = $this->model->checkAdminLogin($_POST);
             if ($adminId) {
                 $_SESSION['admin'] = $adminId;
+                if (isset($_SESSION['admin'])) {
+                    $this->view->render("admin", []);
+                }
             } else {
                 $this->view->render("admin", [
                     'validationResult' => 'E-Mail oder Passwort ist falsch!'
@@ -117,8 +140,32 @@ class Controller
         }
     }
 
+    public function checkUserLogin($formConfig): void {
+        $this->validator->setConfiguration($formConfig);
+        $validationResult = $this->validator->validate($_POST);
+        if ($validationResult === true) {
+            $userId = $this->model->checkUserLogin($_POST);
+            var_dump($userId);
+            if ($userId) {
+                $_SESSION['user'] = $userId;
+                var_dump($_SESSION);
+                if (isset($_SESSION['user'])) {
+                    $this->view->render("index", []);
+                }
+            } else {
+                $this->view->render("index", [
+                    'validationResult' => 'E-Mail oder Passwort ist falsch!'
+                ]);
+            }
+        } else {
+            $this->view->render('index', [
+                'validationResult' => $validationResult
+            ]);
+        }
+    }
+
     public function logout(): void {
         session_destroy();
-        $this->view->render("admin", []);
+        $this->view->render("index", []);
     }
 }

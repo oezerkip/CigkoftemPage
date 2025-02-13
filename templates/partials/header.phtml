@@ -31,11 +31,22 @@
                     </a>
                 </li>
 
+                <?php if (isset($_SESSION['user'])): ?>
+                <li class="nav-item">
+                    <form method="post" action="." onsubmit="return confirm('Ausloggen?')">
+                        <button class="button-74" name="logoutBtn" type="submit" id="logout">Logout</button>
+                    </form>
+<!--                    <a class="nav-link" href="?action=logout">-->
+<!--                        <span>Logout</span>-->
+<!--                    </a>-->
+                </li>
+                <?php else: ?>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginmodal">
                         <span>Login</span>
                     </a>
                 </li>
+                <?php endif; ?>
 
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="modal" data-bs-target="#warenkorbmodal">
