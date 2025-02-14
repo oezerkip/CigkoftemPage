@@ -6,80 +6,91 @@
     </div>
     <div class="row">
         <div class="col">
-            <form method="post" action="?action=index">
+            <form method="post" action="?action=index#login">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-gap-3 mb-4">
                     <div class="col">
                         <label for="vorname" class="form-label">Vorname</label>
-                        <input type="text" class="form-control" name="vorname" id="vorname" value="<?php if (isset($_POST['vorname'])): ?><?php echo htmlentities($_POST['vorname']) ?><?php endif ?>">
+                        <input type="text" class="form-control" name="vorname" id="vorname"
+                            value="<?php if (isset($_POST['vorname'])): ?><?php echo htmlentities($_POST['vorname']) ?><?php endif ?>">
                         <?php if (isset($data['validationResult']['vorname'])): ?>
-                            <p class="error"><?php echo $data['validationResult']['vorname']; ?></p>
+                            <?php echo '<div class="alert alert-danger">' . $data['validationResult']['vorname'] . '</div>'; ?>
                         <?php endif ?>
                     </div>
                     <div class="col">
                         <label for="nachname" class="form-label">Nachname</label>
-                        <input type="text" class="form-control" name="nachname" id="nachname" value="<?php if (isset($_POST['nachname'])): ?><?php echo htmlentities($_POST['nachname']) ?><?php endif ?>">
+                        <input type="text" class="form-control" name="nachname" id="nachname"
+                            value="<?php if (isset($_POST['nachname'])): ?><?php echo htmlentities($_POST['nachname']) ?><?php endif ?>">
                         <?php if (isset($data['validationResult']['nachname'])): ?>
-                            <p class="error"><?php echo $data['validationResult']['nachname']; ?></p>
+                            <?php echo '<div class="alert alert-danger">' . $data['validationResult']['nachname'] . '</div>'; ?>
                         <?php endif ?>
                     </div>
                     <div class="col">
                         <label for="email" class="form-label">Email</label>
-                        <input type="text" class="form-control" name="email" id="email" value="<?php if (isset($_POST['email'])): ?><?php echo htmlentities($_POST['email']) ?><?php endif ?>">
+                        <input type="text" class="form-control" name="email" id="email"
+                            value="<?php if (isset($_POST['email'])): ?><?php echo htmlentities($_POST['email']) ?><?php endif ?>">
                         <?php if (isset($data['validationResult']['email'])): ?>
-                            <p class="error"><?php echo $data['validationResult']['email'] ?></p>
+                            <?php echo '<div class="alert alert-danger">' . $data['validationResult']['email'] . '</div>'; ?>
                         <?php endif ?>
                         <?php if (isset($data['uniqueEmail']) && $data['uniqueEmail']): ?>
-                            <p class="email_error"><?php echo "E-Mail existiert bereits";?></p>
+                            <?php echo '<div class="alert alert-danger">E-Mail existiert bereits</div>'; ?>
                         <?php endif; ?>
                     </div>
                     <div class="col">
                         <label for="strasse" class="form-label">Straße</label>
-                        <input type="text" class="form-control" name="strasse" id="strasse" value="<?php if (isset($_POST['strasse'])): ?><?php echo htmlentities($_POST['strasse']) ?><?php endif ?>">
+                        <input type="text" class="form-control" name="strasse" id="strasse"
+                            value="<?php if (isset($_POST['strasse'])): ?><?php echo htmlentities($_POST['strasse']) ?><?php endif ?>">
                         <?php if (isset($data['validationResult']['strasse'])): ?>
-                            <p class="error"><?php echo $data['validationResult']['strasse']; ?></p>
+                            <?php echo '<div class="alert alert-danger">' . $data['validationResult']['strasse'] . '</div>'; ?>
                         <?php endif ?>
                     </div>
                     <div class="col">
                         <label for="plz" class="form-label">PLZ</label>
-                        <input type="text" class="form-control" name="plz" id="plz" value="<?php if (isset($_POST['plz'])): ?><?php echo htmlentities($_POST['plz']) ?><?php endif ?>">
+                        <input type="text" class="form-control" name="plz" id="plz"
+                            value="<?php if (isset($_POST['plz'])): ?><?php echo htmlentities($_POST['plz']) ?><?php endif ?>">
                         <?php if (isset($data['validationResult']['plz'])): ?>
-                            <p class="error"><?php echo $data['validationResult']['plz']; ?></p>
+                            <?php echo '<div class="alert alert-danger">' . $data['validationResult']['plz'] . '</div>'; ?>
                         <?php endif ?>
                     </div>
                     <div class="col">
                         <label for="wohnort" class="form-label">Wohnort</label>
-                        <input type="text" class="form-control" name="wohnort" id="wohnort" value="<?php if (isset($_POST['wohnort'])): ?><?php echo htmlentities($_POST['wohnort']) ?><?php endif ?>">
+                        <input type="text" class="form-control" name="wohnort" id="wohnort"
+                            value="<?php if (isset($_POST['wohnort'])): ?><?php echo htmlentities($_POST['wohnort']) ?><?php endif ?>">
                         <?php if (isset($data['validationResult']['wohnort'])): ?>
-                            <p class="error"><?php echo $data['validationResult']['wohnort']; ?></p>
+                            <?php echo '<div class="alert alert-danger">' . $data['validationResult']['wohnort'] . '</div>'; ?>
                         <?php endif ?>
                     </div>
                     <div class="col">
                         <label for="passwort" class="form-label">Passwort</label>
-                        <input type="password" class="form-control" name="passwort" id="passwort" value="<?php if (isset($_POST['passwort'])): ?><?php echo htmlentities($_POST['passwort']) ?><?php endif ?>">
+                        <input type="password" class="form-control" name="passwort" id="passwort"
+                            value="<?php if (isset($_POST['passwort'])): ?><?php echo htmlentities($_POST['passwort']) ?><?php endif ?>">
                         <?php if (isset($data['validationResult']['passwort'])): ?>
-                            <p class="error"><?php echo $data['validationResult']['passwort']; ?></p>
+                            <?php echo '<div class="alert alert-danger">' . $data['validationResult']['passwort'] . '</div>'; ?>
                         <?php endif ?>
                     </div>
                     <div class="col">
                         <label for="passwort_wiederholen" class="form-label">Passwort wiederholen</label>
-                        <input type="password" class="form-control" name="passwort_wiederholen" id="passwort_wiederholen" value="<?php if (isset($_POST['passwort_wiederholen'])): ?><?php echo htmlentities($_POST['passwort_wiederholen']) ?><?php endif ?>">
+                        <input type="password" class="form-control" name="passwort_wiederholen"
+                            id="passwort_wiederholen"
+                            value="<?php if (isset($_POST['passwort_wiederholen'])): ?><?php echo htmlentities($_POST['passwort_wiederholen']) ?><?php endif ?>">
                         <?php if (isset($data['validationResult']['passwort_wiederholen'])): ?>
-                            <p class="error"><?php echo $data['validationResult']['passwort_wiederholen']; ?></p>
+                            <?php echo '<div class="alert alert-danger">' . $data['validationResult']['passwort_wiederholen'] . '</div>'; ?>
                         <?php endif ?>
                     </div>
                     <div class="col d-grid align-items-center">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" name="datenschutz" id="datenschutz">
+                            <input class="form-check-input" type="checkbox" value="" name="datenschutz"
+                                id="datenschutz">
                             <label class="form-check-label" for="datenschutz">
                                 Ich habe die Datenschutzerklärung gelesen und akzeptiert.
                             </label>
                             <?php if (isset($_POST['datenschutz'])): ?>
-                            <p><?php echo "Bitte Datenschutzregeln bestätigen"; ?></p>
+                                <?php echo '<div class="alert alert-danger">Bitte Datenschutzregeln bestätigen</div>'; ?>
                             <?php endif; ?>
                         </div>
                     </div>
                     <div class="col d-grid">
-                        <button type="submit" class="btn btn-primary" name="registrationBtn" href="#user-registration">Registrieren</button>
+                        <button type="submit" class="btn btn-primary" name="registrationBtn"
+                            href="#user-registration">Registrieren</button>
                     </div>
                 </div>
 

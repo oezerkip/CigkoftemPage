@@ -1,31 +1,83 @@
 <main data-bs-spy="scroll" data-bs-target="#navbarNav">
-<?php if (isset($_SESSION['admin'])): ?>
-<div class="mt-5">
-    <a class="nav-link" href="?action=dishManager">Gerichte verwalten</a>
-    <a class="nav-link" href="?action=customerManager">Kundenverwaltung</a>
-    <a class="nav-link" href="?action=accountManager">Kontoverwaltung</a>
-    <a class="nav-link" href="?action=fdcManager">Funny-Contest-Verwaltung</a>
-    <a href="?action=logout">Abmelden</a>
-</div>
-<?php else: ?>
-    <div id="admin_login" class="space d-flex justify-content-center mt-5">
-        <form method="post" action="">
-            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-gap-3 mb-4">
-                <div class="col d-grid">
-                    <label for="admin_mail">E-Mail</label>
-                    <input type="text" class="form-control" name="email" id="admin_mail">
-                    <?php if (isset($data['validationResult']['email'])): ?>
-                        <p class="error"><?php echo $data['validationResult']['email'] ?></p>
-                    <?php endif ?>
-                    <label for="admin_pwd">Passwort</label>
-                    <input type="password" class="form-control" name="passwort" id="admin_pwd">
-                    <?php if (isset($data['validationResult']['passwort'])): ?>
-                        <p class="error"><?php echo $data['validationResult']['passwort']; ?></p>
-                    <?php endif ?>
-                    <button type="submit" class="btn btn-primary" name="adminLoginBtn" id="adminLoginBtn">Anmelden</button>
+<section id="admin_login" class="space">
+
+    <div class="container">
+
+    <?php if (isset($_SESSION['admin'])): ?>
+
+            <div class="row">
+                <div class="col">
+                    <a class="card" href="">
+                        <div class="image">
+                            <img src="https://picsum.photos/400" class="card-img-top" alt="...">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Gerichte verwalten</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="card" href="">
+                        <div class="image">
+                            <img src="https://picsum.photos/400" class="card-img-top" alt="...">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Kundenverwaltung</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="card" href="">
+                        <div class="image">
+                            <img src="https://picsum.photos/400" class="card-img-top" alt="...">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Kontoverwaltung</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="card" href="">
+                        <div class="image">
+                            <img src="https://picsum.photos/400" class="card-img-top" alt="...">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Funny-Contest-Verwaltung</p>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </form>
+
+    <?php else: ?>
+
+            <form method="post" action="">
+
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 justify-content-end mb-4">
+                    <div class="col mb-3">
+                        <label for="admin_mail">E-Mail</label>
+                        <input type="text" class="form-control" name="email" id="admin_mail">
+                        <?php if (isset($data['validationResult']['email'])): ?>
+                            <p class="error"><?php echo $data['validationResult']['email'] ?></p>
+                        <?php endif ?>
+                    </div>
+                    <div class="col mb-3">
+                        <label for="admin_pwd">Passwort</label>
+                        <input type="password" class="form-control" name="passwort" id="admin_pwd">
+                        <?php if (isset($data['validationResult']['passwort'])): ?>
+                            <p class="error"><?php echo $data['validationResult']['passwort']; ?></p>
+                        <?php endif ?>
+                    </div>
+                    <div class="col mb-3 text-end">
+                        <button type="submit" class="btn btn-primary" name="adminLoginBtn" id="adminLoginBtn">Anmelden</button>
+                    </div>
+                </div>
+
+            </form>
+  
+    <?php endif; ?>
     </div>
-<?php endif; ?>
+
+
+
+</section>
 </main>
