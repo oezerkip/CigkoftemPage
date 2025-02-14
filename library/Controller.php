@@ -24,7 +24,6 @@ class Controller
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function index() : void {
-        var_dump($_SESSION);
         if (isset($_POST['registrationBtn'])) {
             $formConfig = [
                 "vorname" => ["notempty"],

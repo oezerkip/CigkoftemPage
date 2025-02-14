@@ -83,7 +83,7 @@
                             <label class="form-check-label" for="datenschutz">
                                 Ich habe die Datenschutzerklärung gelesen und akzeptiert.
                             </label>
-                            <?php if (!isset($_POST['datenschutz'])): ?>
+                            <?php if (isset($data['validationResult']['datenschutz'])): ?>
                                 <?php echo '<div class="alert alert-danger">Bitte Datenschutzregeln bestätigen</div>'; ?>
                             <?php endif; ?>
                         </div>
