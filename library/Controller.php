@@ -24,6 +24,7 @@ class Controller
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function index() : void {
+
         if (isset($_POST['registrationBtn'])) {
             $formConfig = [
                 "vorname" => ["notempty"],
@@ -37,12 +38,10 @@ class Controller
                 "datenschutz" => ["isset"]
             ];
             $this->checkRegistration($formConfig);
-            header('Location: /?action=index#login');
             return;
         }
 
         if (isset($_POST['loginBtn'])) {
-//            var_dump($_SESSION).'login durchgeführt';
             $formConfig = [
                 "loginEmail" => ["notempty"],
                 "loginPasswort" => ["notempty"]
@@ -52,7 +51,6 @@ class Controller
         }
 
         if (isset($_POST['logoutBtn'])) {
-//            var_dump($_SESSION).'logout durchgeführt';
             session_destroy();
             $this->view->render("index", []);
             return;
@@ -148,7 +146,7 @@ class Controller
             if ($userId) {
                 $_SESSION['user'] = $userId;
                 var_dump($_SESSION);
-                if (isset($_SESSION['user'])) {
+                if ($_SESSION['user']) {
                     $this->view->render("index", []);
                 }
             } else {

@@ -82,7 +82,7 @@ class Validator
                         //////////////////////////////////////////////////////////////////////////////////////////////
                         /// Prüft ein Feld, dass mindestens fünf und höchstens 5 Zeichen vorhanden sind
                         //////////////////////////////////////////////////////////////////////////////////////////////
-                            if (strlen($value) == 5) {
+                            if (strlen($value) != 5) {
                                 $result[$field] = "Postleitzahl ungültig!";
                             }
                             break;
