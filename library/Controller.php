@@ -26,32 +26,18 @@ class Controller
     public function index() : void {
 
         if (isset($_POST['registrationBtn'])) {
-            $formConfig = [
-                "vorname" => ["notempty"],
-                "nachname" => ["notempty"],
-                "email" => ["checkmail", "notempty"],
-                "strasse" => ["notempty"],
-                "plz" => ["isint", "zipcheck"],
-                "wohnort" => ["notempty"],
-                "passwort" => ["checkpwd", "notempty"],
-                "passwort_wiederholen" => ["password_repetition"],
-                "datenschutz" => ["isset"]
-            ];
-            $this->checkRegistration($formConfig);
+            $this->checkRegistration();
             return;
         }
 
         if (isset($_POST['loginBtn'])) {
-            $formConfig = [
-                "loginEmail" => ["notempty"],
-                "loginPasswort" => ["notempty"]
-            ];
-            $this->checkUserLogin($formConfig);
+            $this->checkUserLogin();
             return;
         }
 
         if (isset($_POST['logoutBtn'])) {
             session_destroy();
+            $_SESSION = [];
             $this->view->render("index", []);
             return;
         }
@@ -65,37 +51,73 @@ class Controller
 
     public function admin(): void {
         if (isset($_POST['adminLoginBtn'])) {
-            $formConfig = [
-                'email' => ['notempty'],
-                'passwort' => ['notempty']
-            ];
-            $this->checkAdminLogin($formConfig);
+            $this->testLogin();
             return;
         }
 
         $this->view->render('admin', []);
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Impressum-Page
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
     public function impressum() {
         $this->view->render('impressum', []);
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Datenschutz-Page
+    //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function datenschutz() {
         $this->view->render('datenschutz', []);
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// AJAX Content Loading
+    //////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-    /**** interne "ausgelagerte" Methoden *******/
+    public function loadContent(): void {
+        if (!isset($_GET['content'])) {
+            echo "Kein Inhalt angegeben.";
+            return;
+        }
+    
+        $content = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['content']); // Sicherheit: Filtert ungültige Zeichen
+        $filePath = "templates/content/{$content}.phtml";
+    
+        if (file_exists($filePath)) {
+            ob_start();
+            include $filePath;
+            $output = ob_get_clean();
+            echo $output;
+        } else {
+            echo "Datei nicht gefunden.";
+        }
+    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     /// Interne "ausgelagerte" Funktionen
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function checkRegistration($formConfig): void {
+    /*************** Validierung des Anmeldeformulars und DB Insert ***************/
+
+    public function checkRegistration(): void {
+        $formConfig = [
+            "vorname" => ["notempty"],
+            "nachname" => ["notempty"],
+            "email" => ["checkmail", "notempty"],
+            "strasse" => ["notempty"],
+            "plz" => ["isint", "zipcheck"],
+            "wohnort" => ["notempty"],
+            "passwort" => ["checkpwd", "notempty"],
+            "passwort_wiederholen" => ["password_repetition"],
+            "datenschutz" => ["isCheck"]
+        ];
         $this->validator->setConfiguration($formConfig);
-        $validationResult = $this->validator->validate($_POST);
+        $datenschutz = $_POST['datenschutz'] ?? null;
+        $validationResult = $this->validator->validate($_POST, $datenschutz);
         if ($validationResult === true) {
             if ($_POST['passwort'] == $_POST['passwort_wiederholen']) {
                 $uniqueMail = $this->model->uniqueMailCheck($_POST);
@@ -115,7 +137,13 @@ class Controller
         }
     }
 
-    public function checkAdminLogin($formConfig): void {
+    /**************************** Login Check Adminbereich ****************************/
+
+    public function checkAdminLogin(): void {
+        $formConfig = [
+            'email' => ['notempty'],
+            'passwort' => ['notempty']
+        ];
         $this->validator->setConfiguration($formConfig);
         $validationResult = $this->validator->validate($_POST);
         if ($validationResult === true) {
@@ -137,7 +165,13 @@ class Controller
         }
     }
 
-    public function checkUserLogin($formConfig): void {
+    /***************************** Login Check Userbereich *****************************/
+
+    public function checkUserLogin(): void {
+        $formConfig = [
+            "loginEmail" => ["notempty"],
+            "loginPasswort" => ["notempty"]
+        ];
         $this->validator->setConfiguration($formConfig);
         $validationResult = $this->validator->validate($_POST);
         if ($validationResult === true) {
@@ -161,8 +195,9 @@ class Controller
         }
     }
 
-    public function logout(): void {
-        session_destroy();
-        $this->view->render("index", []);
+    public function testLogin() : void {
+        $_SESSION ['admin'] = 1;
+
+        $this->view->render("admin", []);
     }
 }

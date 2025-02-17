@@ -1,0 +1,112 @@
+[
+    {
+        "ean": "100",
+        "name": "Adana Kebab",
+        "price": "12,50",
+        "special": false,
+        "category": "Menüs",
+        "description": "Würziger Hackfleischspieß vom Grill, serviert mit Reis und Salat.",
+        "image": "https://picsum.photos/200/200?random=1",
+        "additives": "Gluten, Milch",
+        "calories": "850"
+    },
+    {
+        "ean": "101",
+        "name": "Lahmacun",
+        "price": "6,90",
+        "special": false,
+        "category": "Menüs",
+        "description": "Dünner, knuspriger Teig mit würzigem Hackfleischbelag.",
+        "image": "https://picsum.photos/200/200?random=2",
+        "additives": "Gluten, Ei",
+        "calories": "620"
+    },
+    {
+        "ean": "102",
+        "name": "Iskender Kebab",
+        "price": "13,90",
+        "special": true,
+        "category": "Wraps",
+        "description": "Dönerfleisch mit Tomatensauce, Joghurt und Buttersoße auf Brot.",
+        "image": "https://picsum.photos/200/200?random=3",
+        "additives": "Gluten, Milch",
+        "calories": "980"
+    },
+    {
+        "ean": "103",
+        "name": "Pide mit Käse",
+        "price": "7,50",
+        "special": true,
+        "category": "Wraps",
+        "description": "Türkisches Fladenbrot mit geschmolzenem Käse überbacken.",
+        "image": "https://picsum.photos/200/200?random=4",
+        "additives": "Gluten, Milch",
+        "calories": "750"
+    },
+    {
+        "ean": "104",
+        "name": "Köfte",
+        "price": "11,50",
+        "special": true,
+        "category": "Wraps",
+        "description": "Gegrillte Frikadellen aus Rindfleisch mit Beilagen.",
+        "image": "https://picsum.photos/200/200?random=5",
+        "additives": "Gluten, Ei",
+        "calories": "870"
+    },
+    {
+        "ean": "105",
+        "name": "Manti",
+        "price": "9,90",
+        "special": false,
+        "category": "Süßwaren",
+        "description": "Kleine gefüllte Teigtaschen mit Joghurt und Knoblauch.",
+        "image": "https://picsum.photos/200/200?random=6",
+        "additives": "Gluten, Milch, Ei",
+        "calories": "680"
+    },
+    {
+        "ean": "106",
+        "name": "Börek mit Spinat und Käse",
+        "price": "5,90",
+        "special": true,
+        "category": "Menüs",
+        "description": "Knuspriger Blätterteig gefüllt mit Spinat und Schafskäse.",
+        "image": "https://picsum.photos/200/200?random=7",
+        "additives": "Gluten, Milch, Ei",
+        "calories": "520"
+    },
+    {
+        "ean": "107",
+        "name": "Cig Köfte",
+        "price": "8,50",
+        "special": false,
+        "category": "Süßwaren",
+        "description": "Vegetarische Bulgur-Bällchen mit Gewürzen.",
+        "image": "https://picsum.photos/200/200?random=8",
+        "additives": "Gluten",
+        "calories": "450"
+    },
+    {
+        "ean": "108",
+        "name": "Menemen",
+        "price": "7,90",
+        "special": false,
+        "category": "Getränke",
+        "description": "Türkisches Rührei mit Tomaten, Paprika und Gewürzen.",
+        "image": "https://picsum.photos/200/200?random=9",
+        "additives": "Ei",
+        "calories": "560"
+    },
+    {
+        "ean": "109",
+        "name": "Baklava",
+        "price": "4,50",
+        "special": true,
+        "category": "Süßwaren",
+        "description": "Süßes Gebäck aus Blätterteig, gefüllt mit Nüssen und Honig.",
+        "image": "https://picsum.photos/200/200?random=10",
+        "additives": "Gluten, Milch, Nüsse",
+        "calories": "640"
+    }
+]

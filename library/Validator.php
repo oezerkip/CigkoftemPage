@@ -13,9 +13,11 @@ class Validator
         $this->validationConfig = $config;
     }
 
-    public function validate($values){
+    public function validate($values, $datenschutz){
         $result = array();
+        $values['datenschutz'] = htmlentities($datenschutz);
         foreach ($values as $field => $value){
+            $value = htmlentities($value);
             if (isset($this->validationConfig[$field])){
                 foreach ($this->validationConfig[$field] as $rule){
                     switch ($rule)
@@ -71,10 +73,10 @@ class Validator
                             }
                             break;
                         //////////////////////////////////////////////////////////////////////////////////////////////
-                        /// Vergleicht zwei Passwörter
+                        /// Vergleicht ein Feld mit dem Passwort-Feld
                         //////////////////////////////////////////////////////////////////////////////////////////////
                         case "password_repetition":
-                            if ($_POST['passwort_wiederholen'] != $_POST['passwort']) {
+                            if ($value != $values['passwort']) {
                                 $result[$field] = "Passwörter stimmen nicht überein!";
                             }
                             break;
@@ -86,13 +88,14 @@ class Validator
                                 $result[$field] = "Postleitzahl ungültig!";
                             }
                             break;
-                        case "isset":
+                        case "isCheck":
                         //////////////////////////////////////////////////////////////////////////////////////////////
                         /// Prüft ob der Haken bei Datenschutz gesetzt ist
                         //////////////////////////////////////////////////////////////////////////////////////////////
-                            if (!isset($_POST['datenschutz'])) {
-                                $result[$field] = "Datenschutzregeln bestätigen";
+                            if (empty($value)) {
+                                $result['datenschutz'] = "Datenschutzregeln bestätigen!";
                             }
+                            break;
                     }
                 }
             }

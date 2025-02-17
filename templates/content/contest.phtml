@@ -1,3 +1,5 @@
+<?php $contest = json_decode(file_get_contents('src/pseudo-contest.json'), true); // Pseudo-Artikel-Datenbank ?>
+
 <div class="container">
     <div class="row">
         <div class="col text-center">
@@ -22,55 +24,19 @@
 
             <div class="contest-carousel owl-carousel owl-theme">
 
-                <div class="item text-center">
-                    <a href="" class="image">
-                        <img src="src/img/food/Weizenballchen-WRAP-1200x1433.png" class="img-fluid" alt="food" />
-                    </a>
-                    <a href="" class="like">
-                        <i class="bi bi-heart"></i>
-                        <i class="bi bi-heart-fill"></i>
-                    </a>
-                </div>
+                <?php foreach ($contest as $item): ?>
 
-                <div class="item text-center">
-                    <a href="" class="image">
-                        <img src="src/img/food/Suffle-1200x1433.png" class="img-fluid" alt="food" />
-                    </a>
-                    <a href="" class="like">
-                        <i class="bi bi-heart"></i>
-                        <i class="bi bi-heart-fill"></i>
-                    </a>
-                </div>
-
-                <div class="item text-center">
-                    <a href="" class="image">
-                        <img src="src/img/food/Profiterole-mit-dunkler-schokolade-1200x1433.png" class="img-fluid" alt="food" />
-                    </a>
-                    <a href="" class="like">
-                        <i class="bi bi-heart"></i>
-                        <i class="bi bi-heart-fill"></i>
-                    </a>
-                </div>
-
-                <div class="item text-center">
-                    <a href="" class="image">
-                        <img src="src/img/food/mono-bella-white-chocolate-plate-1200x1432.png" class="img-fluid" alt="food" />
-                    </a>
-                    <a href="" class="like">
-                        <i class="bi bi-heart"></i>
-                        <i class="bi bi-heart-fill"></i>
-                    </a>
-                </div>
-
-                <div class="item text-center">
-                    <a href="" class="image">
-                        <img src="src/img/food/Mini-Weizenballchen-1200x1433.png" class="img-fluid" alt="food" />
-                    </a>
-                    <a href="" class="like">
-                        <i class="bi bi-heart"></i>
-                        <i class="bi bi-heart-fill"></i>
-                    </a>
-                </div>
+                    <div id="contest_item_<?=$item['id']?>" class="item text-center">
+                        <a href="javascript:void(0);" class="image">
+                            <img src="<?=$item['image']?>" class="img-fluid rounded" alt="food" />
+                        </a>
+                        <a href="" class="like">
+                            <i class="bi bi-heart"></i>
+                            <i class="bi bi-heart-fill"></i>
+                        </a>
+                    </div>
+                
+                <?php endforeach; ?>
 
             </div>
 

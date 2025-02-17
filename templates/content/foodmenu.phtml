@@ -1,3 +1,5 @@
+<?php $articles = json_decode(file_get_contents('src/pseudo-articles.json'), true); // Pseudo-Artikel-Datenbank ?>
+
 <div class="container">
     <div class="row">
         <div class="col text-center">
@@ -8,111 +10,31 @@
         <div class="row">
             <div class="col-sm-12 d-flex flex-wrap justify-content-center mb-4">
                 <button type="button" class="btn d-block m-1 active" category="all"><b>All</b></button>
-                <button type="button" class="btn d-block m-1" category="menues"><b>Menüs</b></button>
-                <button type="button" class="btn d-block m-1" category="wraps"><b>Wraps</b></button>
-                <button type="button" class="btn d-block m-1" category="sweets"><b>Süßspeisen</b></button>
-                <button type="button" class="btn d-block m-1" category="drinks"><b>Getränke</b></button>
+                <?php $categories = []; foreach ($articles as $item) {$categories[$item["category"]] = true;} foreach (array_keys($categories) as $category): ?>
+                    <button type="button" class="btn d-block m-1" category="<?=ucfirst($category)?>"><b><?=ucfirst($category)?></b></button>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
     <div id="foodlist">
         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
 
-            <a href="javascript();" class="item active col text-center" category="menues" ean="12"
-                data-bs-toggle="modal" data-bs-target="#foodmodal">
+        <?php foreach ($articles as $article): ?>
+            <a href="javascript();" class="item active col text-center" category="<?=$article['category']?>" ean="<?=$article['ean']?>" data-bs-toggle="modal" data-bs-target="#foodmodal">
                 <p class="image mb-1">
-                    <img src="src/img/food/Cigkoftem-TELLER-1200x1433.png" class="img-fluid" alt="food" />
+                    <img src="<?=$article['image']?>" class="img-fluid rounded" alt="food" />
                 </p>
                 <p class="textbox">
-                    <span class="title"><b>Food Name 1</b></span><br>
-                    <span class="price fw-light">30,- €</span>
+                    <span class="title"><b><?=$article['name']?></b></span><br>
+                    <span class="price fw-light"><?=$article['price']?> €</span>
                 </p>
                 <div class="d-none">
-                    <div class="description">
-                        <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quae quos aut magni neque et
-                            repellendus officia omnis possimus. Dolor alias saepe aperiam quasi similique assumenda?
-                            Adipisci ipsum cupiditate nemo.</p>
-                    </div>
-                    <div class="additives">
-                        <p>bla, bli, blub</p>
-                    </div>
-                    <div class="calories">
-                        <p>300</p>
-                    </div>
+                    <div class="description"><p><?=$article['description']?></p></div>
+                    <div class="additives"><p><?=$article['additives']?></p></div>
+                    <div class="calories"><p><?=$article['calories']?> Kalorien</p></div>
                 </div>
             </a>
-
-            <a href="javascript();" class="item active col text-center" category="wraps" ean="15" data-bs-toggle="modal"
-                data-bs-target="#foodmodal">
-                <p class="image mb-1">
-                    <img src="src/img/food/Falafel-Wrap-1200x1433.png" class="img-fluid" alt="food" />
-                </p>
-                <p class="textbox">
-                    <span class="title"><b>Food Name 2</b></span><br>
-                    <span class="price fw-light">15,- €</span>
-                </p>
-                <div class="d-none">
-                    <div class="description">
-                        <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quae quos aut magni neque et
-                            repellendus officia omnis possimus. Dolor alias saepe aperiam quasi similique assumenda?
-                            Adipisci ipsum cupiditate nemo.</p>
-                    </div>
-                    <div class="additives">
-                        <p>bla, bli, blub</p>
-                    </div>
-                    <div class="calories">
-                        <p>200</p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="javascript();" class="item active col text-center" category="sweets" ean="8" data-bs-toggle="modal"
-                data-bs-target="#foodmodal">
-                <p class="image mb-1">
-                    <img src="src/img/food/Suffle-1200x1433.png" class="img-fluid" alt="food" />
-                </p>
-                <p class="textbox">
-                    <span class="title"><b>Food Name 3</b></span><br>
-                    <span class="price fw-light">10,- €</span>
-                </p>
-                <div class="d-none">
-                    <div class="description">
-                        <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quae quos aut magni neque et
-                            repellendus officia omnis possimus. Dolor alias saepe aperiam quasi similique assumenda?
-                            Adipisci ipsum cupiditate nemo.</p>
-                    </div>
-                    <div class="additives">
-                        <p>bla, bli, blub</p>
-                    </div>
-                    <div class="calories">
-                        <p>400</p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="javascript();" class="item active col text-center" category="drinks" ean="5" data-bs-toggle="modal"
-                data-bs-target="#foodmodal">
-                <p class="image mb-1">
-                    <img src="src/img/food/Souppim-1200x1432.png" class="img-fluid" alt="food" />
-                </p>
-                <p class="textbox">
-                    <span class="title"><b>Food Name</b></span><br>
-                    <span class="price fw-light">25,- €</span>
-                </p>
-                <div class="d-none">
-                    <div class="description">
-                        <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quae quos aut magni neque et
-                            repellendus officia omnis possimus. Dolor alias saepe aperiam quasi similique assumenda?
-                            Adipisci ipsum cupiditate nemo.</p>
-                    </div>
-                    <div class="additives">
-                        <p>bla, bli, blub</p>
-                    </div>
-                    <div class="calories">
-                        <p>300</p>
-                    </div>
-                </div>
-            </a>
+        <?php endforeach; ?>
 
         </div>
     </div>

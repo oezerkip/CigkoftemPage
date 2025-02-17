@@ -1,3 +1,5 @@
+<?php $articles = json_decode(file_get_contents('src/pseudo-articles.json'), true); // Pseudo-Artikel-Datenbank ?>
+
 <div class="container">
     <div class="row mb-5">
         <div class="col text-center">
@@ -12,156 +14,25 @@
         <div class="col">
 
             <div class="food-carousel owl-carousel owl-theme">
-                <a href="#" class="item text-center" category="sweets" ean="8" data-bs-toggle="modal"
-                    data-bs-target="#foodmodal">
-                    <p class="image">
-                        <img src="src/img/food/Falafill-1200x1433.png" class="img-fluid" alt="food" />
-                    </p>
-                    <p class="textbox">
-                        <span class="title"><b><?php $data['foodname'] ?></b></span><br>
-                        <span class="price fw-light">25,- €</span>
-                    </p>
-                    <div class="d-none">
-                        <div class="description">
-                            <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quae quos aut magni neque
-                                et
-                                repellendus officia omnis possimus. Dolor alias saepe aperiam quasi similique assumenda?
-                                Adipisci ipsum cupiditate nemo.</p>
-                        </div>
-                        <div class="additives">
-                            <p>bla, bli, blub</p>
-                        </div>
-                        <div class="calories">
-                            <p>400</p>
-                        </div>
-                    </div>
-                </a>
-                <!-- copy paste für Veranschaulichung: -->
 
-                <a href="#" class="item text-center" category="sweets" ean="8" data-bs-toggle="modal"
-                    data-bs-target="#foodmodal">
-                    <p class="image">
-                        <img src="src/img/food/Falafill-1200x1433.png" class="img-fluid" alt="food" />
-                    </p>
-                    <p class="textbox">
-                        <span class="title"><b>Food Name</b></span><br>
-                        <span class="price fw-light">25,- €</span>
-                    </p>
-                    <div class="d-none">
-                        <div class="description">
-                            <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quae quos aut magni neque
-                                et
-                                repellendus officia omnis possimus. Dolor alias saepe aperiam quasi similique assumenda?
-                                Adipisci ipsum cupiditate nemo.</p>
-                        </div>
-                        <div class="additives">
-                            <p>bla, bli, blub</p>
-                        </div>
-                        <div class="calories">
-                            <p>400</p>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="item text-center" category="sweets" ean="8" data-bs-toggle="modal"
-                    data-bs-target="#foodmodal">
-                    <p class="image">
-                        <img src="src/img/food/Falafill-1200x1433.png" class="img-fluid" alt="food" />
-                    </p>
-                    <p class="textbox">
-                        <span class="title"><b>Food Name</b></span><br>
-                        <span class="price fw-light">25,- €</span>
-                    </p>
-                    <div class="d-none">
-                        <div class="description">
-                            <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quae quos aut magni neque
-                                et
-                                repellendus officia omnis possimus. Dolor alias saepe aperiam quasi similique assumenda?
-                                Adipisci ipsum cupiditate nemo.</p>
-                        </div>
-                        <div class="additives">
-                            <p>bla, bli, blub</p>
-                        </div>
-                        <div class="calories">
-                            <p>400</p>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="item text-center" category="sweets" ean="8" data-bs-toggle="modal"
-                    data-bs-target="#foodmodal">
-                    <p class="image">
-                        <img src="src/img/food/Falafill-1200x1433.png" class="img-fluid" alt="food" />
-                    </p>
-                    <p class="textbox">
-                        <span class="title"><b>Food Name</b></span><br>
-                        <span class="price fw-light">25,- €</span>
-                    </p>
-                    <div class="d-none">
-                        <div class="description">
-                            <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quae quos aut magni neque
-                                et
-                                repellendus officia omnis possimus. Dolor alias saepe aperiam quasi similique assumenda?
-                                Adipisci ipsum cupiditate nemo.</p>
-                        </div>
-                        <div class="additives">
-                            <p>bla, bli, blub</p>
-                        </div>
-                        <div class="calories">
-                            <p>400</p>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="item text-center" category="sweets" ean="8" data-bs-toggle="modal"
-                    data-bs-target="#foodmodal">
-                    <p class="image">
-                        <img src="src/img/food/Falafill-1200x1433.png" class="img-fluid" alt="food" />
-                    </p>
-                    <p class="textbox">
-                        <span class="title"><b>Food Name</b></span><br>
-                        <span class="price fw-light">25,- €</span>
-                    </p>
-                    <div class="d-none">
-                        <div class="description">
-                            <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quae quos aut magni neque
-                                et
-                                repellendus officia omnis possimus. Dolor alias saepe aperiam quasi similique assumenda?
-                                Adipisci ipsum cupiditate nemo.</p>
-                        </div>
-                        <div class="additives">
-                            <p>bla, bli, blub</p>
-                        </div>
-                        <div class="calories">
-                            <p>400</p>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="item text-center" category="sweets" ean="8" data-bs-toggle="modal"
-                    data-bs-target="#foodmodal">
-                    <p class="image">
-                        <img src="src/img/food/Falafill-1200x1433.png" class="img-fluid" alt="food" />
-                    </p>
-                    <p class="textbox">
-                        <span class="title"><b>Food Name</b></span><br>
-                        <span class="price fw-light">25,- €</span>
-                    </p>
-                    <div class="d-none">
-                        <div class="description">
-                            <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quae quos aut magni neque
-                                et
-                                repellendus officia omnis possimus. Dolor alias saepe aperiam quasi similique assumenda?
-                                Adipisci ipsum cupiditate nemo.</p>
-                        </div>
-                        <div class="additives">
-                            <p>bla, bli, blub</p>
-                        </div>
-                        <div class="calories">
-                            <p>400</p>
-                        </div>
-                    </div>
-                </a>
+                <?php foreach ($articles as $article): ?>
+                    <?php if ($article['special']):?>
+                        <a href="#" class="item text-center" category="<?= $article['category']?>" ean="<?= $article['ean']?>" data-bs-toggle="modal" data-bs-target="#foodmodal">
+                            <p class="image">
+                                <img src="<?= $article['image']?>" class="img-fluid rounded" alt="food" />
+                            </p>
+                            <p class="textbox">
+                                <span class="title"><b><?= $article['name']?></b></span><br>
+                                <span class="price fw-light"><?= $article['price']?> €</span>
+                            </p>
+                            <div class="d-none">
+                                <div class="description"><p><?= $article['description']?></p></div>
+                                <div class="additives"><p><?=$article['additives']?></p></div>
+                                <div class="calories"><p><?= $article['calories']?> Kalorien</p></div>
+                            </div>
+                        </a>
+                    <?php endif; ?>
+                <?php endforeach; ?>
 
             </div>
 

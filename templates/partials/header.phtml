@@ -1,55 +1,41 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container">
-
         <a href="/">
             <img src="src/img/logo.png" alt="logo" width="200">
         </a>
-
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
             <ul class="navbar-nav align-items-center">
-
+                <?php if (!isset($_SESSION['admin'])): ?>
                 <li class="nav-item">
                     <a class="nav-link" href="#foodmenu">
                         <span>Speisekarte</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="#team">
                         <span>Team</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="#contact">
                         <span>Kontakt</span>
                     </a>
                 </li>
-
-                <?php if (!isset($_SESSION['user'])): ?>
+                <?php endif; ?>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginmodal">
-                        <span>Login</span>
+                    <a class="nav-link" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#loginmodal">
+                        <?php if (isset($_SESSION['user']) || isset($_SESSION['admin'])): ?>
+                            <span>Logout</span>
+                        <?php else: ?>
+                            <span>Login</span>
+                        <?php endif; ?>
                     </a>
                 </li>
-                <?php endif; ?>
-
-                <?php if (isset($_SESSION['user'])): ?>
-                <li class="nav-item">
-                    <form method="post" action="?action=index" onsubmit="return confirm('Ausloggen?')">
-                        <button class="button-74" name="logoutBtn" type="submit" id="logout">Logout</button>
-                    </form>
-<!--                    <a class="nav-link" href="?action=logout">-->
-<!--                        <span>Logout</span>-->
-<!--                    </a>-->
-                </li>
-                <?php endif; ?>
-
+                <?php if (!isset($_SESSION['admin'])): ?>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="modal" data-bs-target="#warenkorbmodal">
                         <span>
@@ -57,7 +43,7 @@
                         </span>
                     </a>
                 </li>
-
+                <?php endif; ?>
             </ul>
         </div>
     </div>

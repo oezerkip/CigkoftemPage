@@ -1,84 +1,83 @@
 <main data-bs-spy="scroll" data-bs-target="#navbarNav">
-<section id="admin_login" class="space">
-
+    <section class="space">
+        <div class="container">
+            <?php if (isset($_SESSION['admin'])): ?>
+                <div id="admin_menu">
+                    <div class="row">
+                        <div class="col-3 mb-3">
+                            <a class="card" href="javascript:void(0);" data-content="admin_foodmanager">
+                                <div class="image rounded-top">
+                                    <img src="https://picsum.photos/400?random=1" class="card-img-top" alt="...">
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">Gerichte verwalten</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <a class="card" href="javascript:void(0);" data-content="admin_customermanager">
+                                <div class="image rounded-top">
+                                    <img src="https://picsum.photos/400?random=2" class="card-img-top" alt="...">
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">Kundenverwaltung</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <a class="card" href="javascript:void(0);" data-content="admin_accountmanager">
+                                <div class="image rounded-top">
+                                    <img src="https://picsum.photos/400?random=3" class="card-img-top" alt="...">
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">Kontoverwaltung</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <a class="card" href="javascript:void(0);" data-content="admin_contestmanager">
+                                <div class="image rounded-top">
+                                    <img src="https://picsum.photos/400?random=4" class="card-img-top" alt="...">
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">Contest-Verwaltung</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <form method="post" action="">
+                    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 justify-content-end mb-4">
+                        <div class="col mb-3">
+                            <label for="admin_mail">E-Mail</label>
+                            <input type="text" class="form-control" name="email" id="admin_mail">
+                            <?php if (isset($data['validationResult']['email'])): ?>
+                                <p class="text-danger"><?= $data['validationResult']['email'] ?></p>
+                            <?php endif ?>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="admin_pwd">Passwort</label>
+                            <input type="password" class="form-control" name="passwort" id="admin_pwd">
+                            <?php if (isset($data['validationResult']['passwort'])): ?>
+                                <p class="text-danger"><?= $data['validationResult']['passwort'] ?></p>
+                            <?php endif ?>
+                        </div>
+                        <div class="col mb-3 text-end">
+                            <button type="submit" class="btn btn-primary" name="adminLoginBtn" id="adminLoginBtn">Anmelden</button>
+                        </div>
+                    </div>
+                </form>
+            <?php endif; ?>
+        </div>
+    </section>
+    <section id="admin_content" class="space-bottom">
     <div class="container">
-
-    <?php if (isset($_SESSION['admin'])): ?>
-
-            <div class="row">
-                <div class="col">
-                    <a class="card" href="">
-                        <div class="image">
-                            <img src="https://picsum.photos/400" class="card-img-top" alt="...">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">Gerichte verwalten</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="card" href="">
-                        <div class="image">
-                            <img src="https://picsum.photos/400" class="card-img-top" alt="...">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">Kundenverwaltung</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="card" href="">
-                        <div class="image">
-                            <img src="https://picsum.photos/400" class="card-img-top" alt="...">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">Kontoverwaltung</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="card" href="">
-                        <div class="image">
-                            <img src="https://picsum.photos/400" class="card-img-top" alt="...">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">Funny-Contest-Verwaltung</p>
-                        </div>
-                    </a>
-                </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <i>Klicke auf eines der Cards um Inhalte anzuzeigen!</i>
             </div>
-            <a href="?action=logout">Logout</a>
-
-    <?php else: ?>
-
-            <form method="post" action="">
-
-                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 justify-content-end mb-4">
-                    <div class="col mb-3">
-                        <label for="admin_mail">E-Mail</label>
-                        <input type="text" class="form-control" name="email" id="admin_mail">
-                        <?php if (isset($data['validationResult']['email'])): ?>
-                            <p class="error"><?php echo $data['validationResult']['email'] ?></p>
-                        <?php endif ?>
-                    </div>
-                    <div class="col mb-3">
-                        <label for="admin_pwd">Passwort</label>
-                        <input type="password" class="form-control" name="passwort" id="admin_pwd">
-                        <?php if (isset($data['validationResult']['passwort'])): ?>
-                            <p class="error"><?php echo $data['validationResult']['passwort']; ?></p>
-                        <?php endif ?>
-                    </div>
-                    <div class="col mb-3 text-end">
-                        <button type="submit" class="btn btn-primary" name="adminLoginBtn" id="adminLoginBtn">Anmelden</button>
-                    </div>
-                </div>
-
-            </form>
-  
-    <?php endif; ?>
+        </div>
     </div>
-
-
-
-</section>
+    </section>
 </main>

@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h2>Registration</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form method="post" action="?action=index#login">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-gap-3 mb-4">
+                    <div class="col">
+                        <label for="vorname" class="form-label">Vorname</label>
+                        <p><input type="text" class="form-control" name="vorname" id="vorname"
+                        value="<?php if (isset($_POST['vorname'])): ?><?php echo htmlentities($_POST['vorname']) ?><?php endif ?>"></p>
+                        <?php if (isset($data['validationResult']['vorname'])): ?>
+                            <p class="text-danger"><?=$data['validationResult']['vorname']?></p>
+                        <?php endif ?>
+                    </div>
+                    <div class="col">
+                        <label for="nachname" class="form-label">Nachname</label>
+                        <p><input type="text" class="form-control" name="nachname" id="nachname"
+                        value="<?php if (isset($_POST['nachname'])): ?><?php echo htmlentities($_POST['nachname']) ?><?php endif ?>"></p>
+                        <?php if (isset($data['validationResult']['nachname'])): ?>
+                            <p class="text-danger"><?=$data['validationResult']['nachname']?></p>
+                        <?php endif ?>
+                    </div>
+                    <div class="col">
+                        <label for="email" class="form-label">Email</label>
+                        <p><input type="text" class="form-control" name="email" id="email" value="<?php if (isset($_POST['email'])): ?><?php echo htmlentities($_POST['email']) ?><?php endif ?>"></p>
+                        <?php if (isset($data['validationResult']['email'])): ?>
+                            <p class="text-danger"><?=$data['validationResult']['email']?></p>
+                        <?php endif ?>
+                        <?php if (isset($data['uniqueEmail']) && $data['uniqueEmail']): ?>
+                            <p class="text-danger">E-Mail existiert bereits</p>
+                        <?php endif ?>
+                    </div>
+                    <div class="col">
+                        <label for="strasse" class="form-label">Straße</label>
+                        <p><input type="text" class="form-control" name="strasse" id="strasse" value="<?php if (isset($_POST['strasse'])): ?><?php echo htmlentities($_POST['strasse']) ?><?php endif ?>"></p>
+                        <?php if (isset($data['validationResult']['strasse'])): ?>
+                            <p class="text-danger"><?=$data['validationResult']['strasse']?></p>
+                        <?php endif ?>
+                    </div>
+                    <div class="col">
+                        <label for="plz" class="form-label">PLZ</label>
+                        <p><input type="text" class="form-control" name="plz" id="plz" value="<?php if (isset($_POST['plz'])): ?><?php echo htmlentities($_POST['plz']) ?><?php endif ?>"></p>
+                        <?php if (isset($data['validationResult']['plz'])): ?>
+                            <p class="text-danger"><?=$data['validationResult']['plz']?></p>
+                        <?php endif ?>
+                    </div>
+                    <div class="col">
+                        <label for="wohnort" class="form-label">Wohnort</label>
+                        <p><input type="text" class="form-control" name="wohnort" id="wohnort" value="<?php if (isset($_POST['wohnort'])): ?><?php echo htmlentities($_POST['wohnort']) ?><?php endif ?>"></p>
+                        <?php if (isset($data['validationResult']['wohnort'])): ?>
+                            <p class="text-danger"><?=$data['validationResult']['wohnort']?></p>
+                        <?php endif ?>
+                    </div>
+                    <div class="col">
+                        <label for="passwort" class="form-label">Passwort</label>
+                        <p><input type="password" class="form-control" name="passwort" id="passwort" value="<?php if (isset($_POST['passwort'])): ?><?php echo htmlentities($_POST['passwort']) ?><?php endif ?>"></p>
+                        <?php if (isset($data['validationResult']['passwort'])): ?>
+                            <p class="text-danger"><?=$data['validationResult']['passwort']?></p>
+                        <?php endif ?>
+                    </div>
+                    <div class="col">
+                        <label for="passwort_wiederholen" class="form-label">Passwort wiederholen</label>
+                        <p><input type="password" class="form-control" name="passwort_wiederholen" id="passwort_wiederholen" value="<?php if (isset($_POST['passwort_wiederholen'])): ?><?php echo htmlentities($_POST['passwort_wiederholen']) ?><?php endif ?>"></p>
+                        <?php if (isset($data['validationResult']['passwort_wiederholen'])): ?>
+                            <p class="text-danger"><?=$data['validationResult']['passwort_wiederholen']?></p>
+                        <?php endif ?>
+                    </div>
+                    <div class="col d-grid align-items-center">
+                        <p class="form-check">
+                           <input class="form-check-input" type="checkbox" name="datenschutz" id="datenschutz">
+                            <label class="form-check-label" for="datenschutz">Ich habe die Datenschutzerklärung gelesen und akzeptiert.</label>
+                        </p>
+                        <?php if (isset($data['validationResult']['datenschutz'])): ?>
+                            <p class="text-danger"><?=$data['validationResult']['datenschutz']?></p>
+                        <?php endif; ?>
+                    </div>
+                    <div class="col d-grid align-items-baseline">
+                        <button type="submit" class="btn btn-primary" name="registrationBtn" href="#user-registration">Registrieren</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

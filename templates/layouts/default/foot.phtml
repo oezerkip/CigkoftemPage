@@ -1,9 +1,14 @@
 <footer>
     <?php require('templates/partials/footer.phtml')?>
 </footer>
+<a href="#top" id="backToTop" title="Nach oben scrollen">
+    <i class="fs-1 bi bi-arrow-up-square"></i>
+</a>
 
 <script src="vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="src/js/script.js"></script>
-
+<?php if (isset($_SESSION['admin'])): ?>
+    <script src="src/js/admin-script.js"></script>
+<?php endif; ?>
     </body>
 </html>

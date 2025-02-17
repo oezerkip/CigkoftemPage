@@ -56,7 +56,6 @@ $(document).ready(function () {
         items: 4,
       },
     },
-    loop: true,
     center: true,
     margin: 10,
     nav: true,
@@ -97,12 +96,12 @@ const myModalEl = document.getElementById("foodmodal");
 foodmodal.addEventListener("show.bs.modal", (event) => {
   console.log($(event.relatedTarget));
   const food = $(event.relatedTarget);
-  $(".modal-title", foodmodal).html($(".title", food).html());
+  $(".modal-title", foodmodal).html($(".title", food).text());
   $(".modal-image", foodmodal).attr("src", $(".image img", food).attr("src"));
-  $(".modal-description", foodmodal).html($(".description", food).html());
-  $(".modal-price", foodmodal).html($(".price", food).html());
-  $(".modal-additives", foodmodal).html($(".additives", food).html());
-  $(".modal-calories", foodmodal).html($(".calories", food).html());
+  $(".modal-description", foodmodal).html($(".description", food).text());
+  $(".modal-price", foodmodal).html($(".price", food).text());
+  $(".modal-additives", foodmodal).html($(".additives", food).text());
+  $(".modal-calories", foodmodal).html($(".calories", food).text());
 });
 
 // ----------------------------------------------------------------------
@@ -112,6 +111,21 @@ $(document).ready(function () {
   $(".like").click(function (event) {
     event.preventDefault(); // Verhindert das Standardverhalten (Link-Klick)
     event.stopPropagation(); // Stoppt das Event, damit der übergeordnete Link nicht klickt
-    $(this).toggleClass("active");
+    $(this).toggleClass("selected");
+  });
+});
+
+// ----------------------------------------------------------------------
+// Back To Top Button
+// ----------------------------------------------------------------------
+$(document).ready(function () {
+  const backToTopButton = $("#backToTop");
+
+  $(window).scroll(function () {
+      if ($(this).scrollTop() > 300) {
+          backToTopButton.fadeIn();
+      } else {
+          backToTopButton.fadeOut();
+      }
   });
 });
