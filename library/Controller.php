@@ -116,8 +116,7 @@ class Controller
             "datenschutz" => ["isCheck"]
         ];
         $this->validator->setConfiguration($formConfig);
-        $datenschutz = $_POST['datenschutz'] ?? null;
-        $validationResult = $this->validator->validate($_POST, $datenschutz);
+        $validationResult = $this->validator->validate($_POST);
         if ($validationResult === true) {
             if ($_POST['passwort'] == $_POST['passwort_wiederholen']) {
                 $uniqueMail = $this->model->uniqueMailCheck($_POST);
