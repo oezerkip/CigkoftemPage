@@ -13,9 +13,8 @@ class Validator
         $this->validationConfig = $config;
     }
 
-    public function validate($values, $datenschutz){
+    public function validate($values){
         $result = array();
-        $values['datenschutz'] = htmlentities($datenschutz);
         foreach ($values as $field => $value){
             $value = htmlentities($value);
             if (isset($this->validationConfig[$field])){
@@ -92,7 +91,8 @@ class Validator
                         //////////////////////////////////////////////////////////////////////////////////////////////
                         /// Prüft ob der Haken bei Datenschutz gesetzt ist
                         //////////////////////////////////////////////////////////////////////////////////////////////
-                            if (empty($value)) {
+
+                            if (!isset($value)) {
                                 $result['datenschutz'] = "Datenschutzregeln bestätigen!";
                             }
                             break;
