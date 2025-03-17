@@ -1,0 +1,45 @@
+<div class="modal fade" id="loginmodal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <?php if (isset($_SESSION['user']) || isset($_SESSION['admin'])): ?>
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Logout</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="<?= $_SERVER['PHP_SELF'] ?>">
+                        <p>Möchtest du dich wirklich ausloggen?</p>
+                        <button type="submit" class="btn btn-primary" name="logoutBtn">Abmelden</button>
+                    </form>
+                </div>
+            <?php else: ?>
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="<?= $_SERVER['PHP_SELF'] ?>">
+                        <div class="mb-3">
+                            <label for="user" class="col-form-label">E-Mail</label>
+                            <input type="text" class="form-control" id="user" name="loginEmail">
+                            <?php if (isset($data['validationResult']['loginEmail'])): ?>
+                                <p class="error"><?php echo $data['validationResult']['loginEmail'] ?></p>
+                            <?php endif ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="col-form-label">Passwort</label>
+                            <input type="password" class="form-control" id="password" name="loginPasswort">
+                            <?php if (isset($data['validationResult']['loginPasswort'])): ?>
+                                <p class="error"><?php echo $data['validationResult']['loginPasswort'] ?></p>
+                            <?php endif ?>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="loginBtn">Anmelden</button>
+                        <a href="#login" class="btn btn-secondary" onclick="$('#loginmodal').modal('hide'); window.location.hash = 'login';">Registrieren</a>
+                    </form>
+                </div>
+            <?php endif; ?>
+
+        </div>
+    </div>
+</div>

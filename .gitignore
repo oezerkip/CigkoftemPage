@@ -1,2 +1,6 @@
 .idea/
-.config/dbconfig.php
+.config/
+.vscode/
+.composer.json
+.composer.lock
+.README.md

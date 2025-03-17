@@ -1,8 +1,77 @@
-
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-        Gerichte verwalten ...
+    <div class="row justify-content-center">
+        <h2 class="text-center">Produktverwaltung</h2>
+        <div class="col-12 col-xl-6">
+            <form id="foodManager" class="align-content-center d-flex flex-column">
+                <div class="mb-4">
+                    <select name="productSelect" class="form-select" onclick="updateFoodSelect();" onchange="selectFood();">
+                        <option>Neuer Artikel</option>
+                    </select>
+                </div>
+                <hr>
+                <div id="articleMask">
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="mb-3">
+                                <label for="ean" class="form-label">Artikelnummer</label>
+                                <input type="text" id="ean" class="form-control" name="ean" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Kategorie</label>
+                                <input type="text" id="category" class="form-control" name="category" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Bezeichnung der Speise</label>
+                                <input type="text" id="name" class="form-control" name="name" required>
+                            </div>
+                        </div>
+                        <div class="col-auto d-flex flex-column justify-content-end">
+                            <div class="mb-3">
+                                <input name="special" class="form-check-input" type="checkbox" value="1" id="special">
+                                <label for="special" class="form-check-label">Special</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Beschreibung</label>
+                        <textarea id="description" class="form-control" name="description" rows="6" style="resize: vertical;" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="additives" class="form-label">Inhaltsstoffe</label>
+                        <input type="text" id="additives" class="form-control" name="additives" required>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="calories" class="form-label">Energiewert</label>
+                                <input type="text" id="calories" class="form-control" name="calories" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Preis</label>
+                                <input type="text" id="price" class="form-control" name="price" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label for="image" class="form-label">Bild-Pfad</label>
+                        <input type="text" id="image" class="form-control" name="image" required>
+                    </div>
+                </div>
+
+                <div class="btn-group" role="group">
+                    <button type="submit" id="addArticle" name="addArticle" class="btn btn-success d-block m-auto" onclick="">Erstellen</button>
+                    <button type="submit" id="updateArticle" name="updateArticle" class="btn btn-secondary d-block m-auto" disabled onclick="">Aktualisieren</button>
+                    <button type="submit" id="deleteArticle" name="deleteArticle" class="btn btn-secondary d-block m-auto" disabled onclick="">Löschen</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -1,0 +1,29 @@
+<div class="modal fade" id="modal_shoppingcart" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Warenkorb</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table id="shoppingcart" class="table table-striped" style="white-space: nowrap;">
+                        <!-- {products in cart} -->
+                    </table>
+                </div>
+                <form>
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label">Vorname & Nachname</label>
+                        <input type="text" name="fullname" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fulladress" class="form-label">Lieferadresse</label>
+                        <input type="text" name="fulladdress" class="form-control" required>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">abbrechen</button>
+                    <button type="submit" id="bestellen" class="btn btn-primary">bestellen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

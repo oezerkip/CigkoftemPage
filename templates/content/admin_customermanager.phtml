@@ -1,8 +1,47 @@
-
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-        Kunden verwalten ...
+    <div class="row justify-content-center">
+        <h2 class="text-center">Kundenverwaltung</h2>
+        <div class="col-12 col-xl-6">
+            <form id="searchCustomer">
+                <div class="mb-3">
+                    <label for="searchEmail" class="form-label">Email Kunde</label>
+                    <input type="input" id="searchEmail" class="form-control" name="searchEmail">
+                </div>
+                <button type="submit" class="btn btn-primary d-block m-auto" onclick="searchCustomer(event);">Kunden suchen</button>
+            </form>
+        </div>
+        <div class="col-12 col-xl-6">
+            <form id="showCustomer">
+                <div class="mb-3">
+                    <label for="vorname" class="form-label">Vorname</label>
+                    <input type="input" id="vorname" class="form-control" name="vorname">
+                </div>
+                <div class="mb-3">
+                    <label for="nachname" class="form-label">Nachname</label>
+                    <input type="input" id="nachname" class="form-control" name="nachname">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="input" id="email" class="form-control" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="strasse" class="form-label">Straße</label>
+                    <input type="input" id="strasse" class="form-control" name="strasse">
+                </div>
+                <div class="mb-3">
+                    <label for="hausnummer" class="form-label">Hausnummer</label>
+                    <input type="input" id="hausnummer" class="form-control" name="hausnummer">
+                </div>
+                <div class="mb-3">
+                    <label for="plz" class="form-label">PLZ</label>
+                    <input type="input" id="plz" class="form-control" name="plz">
+                </div>
+                <div class="mb-3">
+                    <label for="wohnort" class="form-label">Wohnort</label>
+                    <input type="input" id="wohnort" class="form-control" name="wohnort">
+                </div>
+                <button type="submit" class="btn btn-danger d-block m-auto">Kunden löschen</button>
+            </form>
         </div>
     </div>
 </div>

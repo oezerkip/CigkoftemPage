@@ -1,7 +1,23 @@
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            Account verwalten ...
+    <div class="row justify-content-center">
+        <h2 class="text-center">Kontoverwaltung</h2>
+        <div class="col-12 col-xl-6">
+            <h3>Passwort ändern</h3>
+            <form>
+                <div class="mb-3">
+                    <label for="currentPassword" class="form-label">Aktuelles Passwort</label>
+                    <input type="password" id="currentPassword" class="form-control" name="currentPassword">
+                </div>
+                <div class="mb-3">
+                    <label for="newPassword" class="form-label">Neues Passwort</label>
+                    <input type="password" id="newPassword" class="form-control" name="newPassword">
+                </div>
+                <div class="mb-3">
+                    <label for="newPasswordRepeat" class="form-label">Neues Passwort</label>
+                    <input type="password" id="newPasswordRepeat" class="form-control" name="newPasswordRepeat">
+                </div>
+                <button type="submit" class="btn btn-primary d-block m-auto">Passwort ändern</button>
+            </form>
         </div>
     </div>
 </div>

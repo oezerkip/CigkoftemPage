@@ -7,21 +7,15 @@
     <title>Çiğköftem</title>
     <link rel="stylesheet" href="src/css/main.css">
     <script src="vendor/jquery/jquery.min.js"></script>
-    <?php if (isset($_SESSION['admin'])):  ?>
-    <?php else: ?>
-        <link rel="stylesheet" href="vendor/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
-        <link rel="stylesheet" href="vendor/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
-        <script src="vendor/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
-    <?php endif; ?>
+    <link rel="stylesheet" href="vendor/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="vendor/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="vendor/fancy-box/fancy-box.min.css">
 </head>
 
 <body id="top">
-    <?php if (isset($_SESSION['admin'])): ?>
-    <?php else: ?>
-        <?php require('templates/partials/warenkorbmodal.phtml'); ?>
-        <?php require('templates/partials/foodmodal.phtml'); ?>
-    <?php endif; ?>
-    <?php require('templates/partials/loginmodal.phtml'); ?>
+    <?php require('templates/partials/modal_shoppingcart.phtml'); ?>
+    <?php require('templates/partials/modal_food.phtml'); ?>
+    <?php require('templates/partials/modal_login.phtml'); ?>
     <header class="fixed-top">
         <?php require('templates/partials/header.phtml'); ?>
     </header>

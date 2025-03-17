@@ -1,0 +1,102 @@
+[
+    {
+        "id": "1",
+        "vorname": "Max",
+        "nachname": "Mustermann",
+        "email": "muster@gmail.com",
+        "strasse": "Musterstraße",
+        "hausnummer": "1",
+        "plz": "96123",
+        "wohnort": "Musterstadt"
+    },
+    {
+        "id": "2",
+        "vorname": "Erika",
+        "nachname": "Musterfrau",
+        "email": "erika@gmail.com",
+        "strasse": "Beispielweg",
+        "hausnummer": "5",
+        "plz": "12345",
+        "wohnort": "Beispieldorf"
+    },
+    {
+        "id": "3",
+        "vorname": "Hans",
+        "nachname": "Beispiel",
+        "email": "hans@example.com",
+        "strasse": "Teststraße",
+        "hausnummer": "8",
+        "plz": "54321",
+        "wohnort": "Testhausen"
+    },
+    {
+        "id": "4",
+        "vorname": "Julia",
+        "nachname": "Meyer",
+        "email": "julia.meyer@email.com",
+        "strasse": "Hauptstraße",
+        "hausnummer": "10",
+        "plz": "98765",
+        "wohnort": "Hauptstadt"
+    },
+    {
+        "id": "5",
+        "vorname": "Michael",
+        "nachname": "Schmidt",
+        "email": "michael.schmidt@mail.com",
+        "strasse": "Rosenweg",
+        "hausnummer": "2",
+        "plz": "65432",
+        "wohnort": "Blumenstadt"
+    },
+    {
+        "id": "6",
+        "vorname": "Sabine",
+        "nachname": "Fischer",
+        "email": "sabine.fischer@web.de",
+        "strasse": "Bachgasse",
+        "hausnummer": "3",
+        "plz": "11223",
+        "wohnort": "Wasserburg"
+    },
+    {
+        "id": "7",
+        "vorname": "Thomas",
+        "nachname": "Klein",
+        "email": "thomas.klein@provider.net",
+        "strasse": "Bergstraße",
+        "hausnummer": "4",
+        "plz": "33445",
+        "wohnort": "Bergheim"
+    },
+    {
+        "id": "8",
+        "vorname": "Petra",
+        "nachname": "Huber",
+        "email": "petra.huber@domain.com",
+        "strasse": "Marktplatz",
+        "hausnummer": "6",
+        "plz": "55667",
+        "wohnort": "Altstadt"
+    },
+    {
+        "id": "9",
+        "vorname": "Lukas",
+        "nachname": "Weber",
+        "email": "lukas.weber@demo.org",
+        "strasse": "Schulstraße",
+        "hausnummer": "9",
+        "plz": "77889",
+        "wohnort": "Lernstadt"
+    },
+    {
+        "id": "10",
+        "vorname": "Anna",
+        "nachname": "Lehmann",
+        "email": "anna.lehmann@test.com",
+        "strasse": "Gartenweg",
+        "hausnummer": "12",
+        "plz": "99001",
+        "wohnort": "Grünhausen"
+    }
+]
