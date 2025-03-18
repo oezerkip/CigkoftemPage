@@ -42,7 +42,15 @@ class Controller
             return;
         }
 
-        $this->view->render('index', []);
+        $foodMenu = $this->model->getFoodData();
+        $specialFood = $this->model->getSpecialFood();
+        //$contestImages = $this->model->getContestImages();
+        //$contestWinner = $this->model->getContestWinner();
+
+        $this->view->render('index', [
+            'foodMenu' => $foodMenu,
+            'specialFood' => $specialFood
+        ]);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
