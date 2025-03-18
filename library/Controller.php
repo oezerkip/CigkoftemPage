@@ -183,10 +183,8 @@ class Controller
         $validationResult = $this->validator->validate($_POST);
         if ($validationResult === true) {
             $userId = $this->model->checkUserLogin($_POST);
-            var_dump($userId);
             if ($userId) {
                 $_SESSION['user'] = $userId;
-                var_dump($_SESSION);
                 if ($_SESSION['user']) {
                     $this->view->render("index", []);
                 }

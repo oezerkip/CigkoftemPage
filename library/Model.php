@@ -57,10 +57,6 @@ class Model
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function checkUserLogin($toBeChecked): array {
-//        $adminId = $this->db->prepare("SELECT ID FROM customer WHERE e_mail=? AND password=?");
-//        $adminId->execute([$toBeChecked['loginEmail'], $toBeChecked['loginPasswort']]);
-//        return $adminId->fetch(\PDO::FETCH_ASSOC);
-
         $stmt = $this->db->prepare("SELECT ID, password FROM customer WHERE e_mail=?");
         $stmt->execute([$toBeChecked['loginEmail']]);
         $user = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -104,13 +100,31 @@ class Model
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Contest-Bilder Upload
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function uploadImages($userId, $imageURL) {
+        $stmt = $this->db->prepare("INSERT INTO contest (pic_url, owner_mail, rating, permission) VALUES (?,?,?,?)");
+        $stmt->execute([$imageURL, ("SELECT e_mail FROM customer WHERE ID=$userId"), 0, 0]);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Like Button
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function raiseRating($imageURL) {
+        $stmt = $this->db->prepare("UPDATE contest SET rating=(SELECT rating FROM contest WHERE pic_url=$imageURL) + 1");
+        $stmt->execute();
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
     /// Alle berechtigten Contest Bilder aus der Datenbank holen
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function getContestImages () {
         $contestImages = $this->db->prepare("SELECT pic_url FROM contest WHERE permission = 1");
         $contestImages->execute();
-        return contestImages->fetAll(\PDO::FETCH_ASSOC);
+        return $contestImages->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -120,12 +134,108 @@ class Model
     public function getContestWinner () {
         $contestWinner = $this->db->prepare("SELECT pic_url FROM contest WHERE rating = (SELECT MAX(rating) FROM contest) LIMIT 1");
         $contestWinner->execute();
-        return getContestWinner->fetch(\PDO::FETCH_ASSOC);
+        return $contestWinner->fetch(\PDO::FETCH_ASSOC);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    /// 
+    /// Eintragung von neuen Gerichten
     //////////////////////////////////////////////////////////////////////////////////////////////
 
+    public function addNewFood($foodToBeInserted) {
+        $stmt = $this->db->prepare("INSERT INTO product (ean, name, description, additives, calories, price, special, category, image) VALUES (?,?,?,?,?,?,?,?)");
+        $stmt->execute(
+            [$foodToBeInserted['ean'],
+                $foodToBeInserted['name'],
+                $foodToBeInserted['description'],
+                $foodToBeInserted['additives'],
+                $foodToBeInserted['calories'],
+                $foodToBeInserted['price'],
+                $foodToBeInserted['special'],
+                $foodToBeInserted['category'],
+                $foodToBeInserted['image']]);
+    }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Aktualisierung von Gerichten
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function updateFood($newFoodData) {
+        $stmt = $this->db->prepare("UPDATE product SET ean=?, name=?, description=?, additives=?, calories=?, price=?, special=?, category=?, image=?");
+        $stmt->execute([
+            $newFoodData['ean'],
+            $newFoodData['name'],
+            $newFoodData['description'],
+            $newFoodData['additives'],
+            $newFoodData['calories'],
+            $newFoodData['price'],
+            $newFoodData['special'],
+            $newFoodData['category'],
+            $newFoodData['image']
+        ]);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Löschung von Gerichten
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function deleteFood($ean) {
+        $stmt = $this->db->prepare("DELETE FROM product WHERE ean=?");
+        $stmt->execute($ean);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Kunden aus der Datenbank suchen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function getCustomer($mail): array {
+        $stmt = $this->db->prepare("SELECT name, surname, e_mail, street, postal_code, city FROM customer WHERE e_mail=?");
+        $stmt->execute($mail);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Kunden aus der Datenbank löschen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function deleteCustomer($mail) {
+        $stmt = $this->db->prepare("DELETE FROM customer WHERE e_mail=?");
+        $stmt->execute($mail);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Admin-Passwort Update
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function updateAdminPassword($pwd) {
+        $stmt = $this->db->prepare("UPDATE admin SET password=?");
+        $stmt->execute($pwd);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Contest-Bilder holen für die Admin-Seite
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function getContestImagesManager(): array {
+        $stmt = $this->db->prepare("SELECT pic_url, owner_mail FROM contest");
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Bilderfreigabe
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function setPermission() {
+        $stmt = $this->db->prepare("UPDATE contest SET permission=1");
+        $stmt->execute();
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Contest-Bilder löschen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function deleteContestImages($imageURL) {
+        $stmt = $this->db->prepare("DELETE FROM contest WHERE oic_url=?");
+        $stmt->execute($imageURL);
+    }
 }
