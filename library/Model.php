@@ -56,7 +56,7 @@ class Model
     /// Login-Abfrage im User-Bereich
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function checkUserLogin($toBeChecked) {
+    public function checkUserLogin($toBeChecked): array {
 //        $adminId = $this->db->prepare("SELECT ID FROM customer WHERE e_mail=? AND password=?");
 //        $adminId->execute([$toBeChecked['loginEmail'], $toBeChecked['loginPasswort']]);
 //        return $adminId->fetch(\PDO::FETCH_ASSOC);
@@ -68,6 +68,8 @@ class Model
         // Prüfen, ob der Benutzer existiert und das Passwort korrekt ist
         if ($user && password_verify($toBeChecked['loginPasswort'], $user['password'])) {
             return ['ID' => $user['ID']]; // Benutzer-ID zurückgeben
+        } else {
+            return ['ID' => 0];
         }
     }
 
