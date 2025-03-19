@@ -10,6 +10,7 @@
                 </div>
                 <hr>
                 <div id="articleMask">
+                    <input type="hidden" id="productID" name="productID" value="">
                     <div class="row">
                         <div class="col-auto">
                             <div class="mb-3">
@@ -67,9 +68,9 @@
                 </div>
 
                 <div class="btn-group" role="group">
-                    <button type="submit" id="addArticle" name="addArticle" class="btn btn-success d-block m-auto" onclick="">Erstellen</button>
-                    <button type="submit" id="updateArticle" name="updateArticle" class="btn btn-secondary d-block m-auto" disabled onclick="">Aktualisieren</button>
-                    <button type="submit" id="deleteArticle" name="deleteArticle" class="btn btn-secondary d-block m-auto" disabled onclick="">Löschen</button>
+                    <button type="submit" id="addArticle" name="addArticle" class="btn btn-success d-block m-auto" onclick="addArticleToDB(event)">Erstellen</button>
+                    <button type="submit" id="updateArticle" name="updateArticle" class="btn btn-secondary d-block m-auto" disabled onclick="updateArticleAtDB(event)">Aktualisieren</button>
+                    <button type="submit" id="deleteArticle" name="deleteArticle" class="btn btn-secondary d-block m-auto" disabled onclick="deleteArticleFromDB(event)">Löschen</button>
                 </div>
             </form>
         </div>

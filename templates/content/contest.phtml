@@ -1,6 +1,3 @@
-<?php $contest = json_decode(file_get_contents('src/pseudo-contest.json'), true); // Pseudo-Artikel-Datenbank 
-?>
-
 <div class="container">
     <div class="row">
         <div class="col text-center">
@@ -9,44 +6,29 @@
     </div>
     <div class="row">
         <div class="col">
-            <form>
+            <form id="uploadContestImage">
                 <div class="d-flex align-items-end gap-2 mb-3">
                     <button type="submit" class="btn btn-primary">Absenden</button>
                     <div class="item flex-fill">
                         <label class="form-label" for="link">Bitte Bild als Link einfügen:</label>
-                        <input type="text" class="form-control" id="link" placeholder="http://image.com/">
+                        <input type="text" name="imagePath" class="form-control" id="imagePath" placeholder="http://image.com/">
                     </div>
                 </div>
             </form>
+            <div id="uploadContestImageMessage">
+
+            </div>
         </div>
     </div>
     <div class="row mb-5">
         <div class="col">
-
-            <div class="contest-carousel owl-carousel owl-theme">
-
-                <?php foreach ($contest as $item): ?>
-
-                    <div id="contest_item_<?= $item['id'] ?>" class="item text-center">
-                        <a href="<?= $item['image'] ?>" class="image" data-fancybox>
-                            <img src="<?= $item['image'] ?>" class="img-fluid rounded" alt="food" />
-                        </a>
-                        <a href="" class="like">
-                            <i class="bi bi-heart"></i>
-                            <i class="bi bi-heart-fill"></i>
-                        </a>
-                    </div>
-
-                <?php endforeach; ?>
-
-            </div>
-
+            <div class="contest-carousel owl-carousel owl-theme"></div>
         </div>
     </div>
     <div class="row">
         <div class="col text-center">
             <h2>WINNER WINNER CIGKÖFTE-DINNER</h2>
-            <img src="src/img/food/Cigkoftem-WRAP-1200x1433.png" class="img-fluid" alt="" width="600" />
+            <img src="<?=$data['contestWinner']['pic_url']?>" class="img-fluid rounded" alt="" width="600" />
         </div>
     </div>
 </div>

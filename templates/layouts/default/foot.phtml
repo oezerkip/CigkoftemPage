@@ -5,10 +5,15 @@
     <i class="fs-1 bi bi-arrow-up-square"></i>
 </a>
 
+
 <script src="vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
 <script src="vendor/fancy-box/fancy-box.min.js"></script>
-<script src="src/js/script.js"></script>
+<?php if (isset($_SESSION['admin'])): ?>
+    <script src="src/js/admin-backend.js"></script>
+<?php endif; ?>
+<script src="src/js/shopping-cart.js"></script>
+<script src="src/js/main.js"></script>
 </body>
 
 </html>

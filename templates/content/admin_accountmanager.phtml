@@ -3,7 +3,7 @@
         <h2 class="text-center">Kontoverwaltung</h2>
         <div class="col-12 col-xl-6">
             <h3>Passwort ändern</h3>
-            <form>
+            <form id="adminAccount" class="mb-3">
                 <div class="mb-3">
                     <label for="currentPassword" class="form-label">Aktuelles Passwort</label>
                     <input type="password" id="currentPassword" class="form-control" name="currentPassword">
@@ -16,8 +16,9 @@
                     <label for="newPasswordRepeat" class="form-label">Neues Passwort</label>
                     <input type="password" id="newPasswordRepeat" class="form-control" name="newPasswordRepeat">
                 </div>
-                <button type="submit" class="btn btn-primary d-block m-auto">Passwort ändern</button>
+                <button type="submit" class="btn btn-primary d-block m-auto" onclick="updateAdminPassword(event);">Passwort ändern</button>
             </form>
+            <div id="formMessage"></div>
         </div>
     </div>
 </div>

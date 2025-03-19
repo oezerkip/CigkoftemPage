@@ -7,40 +7,40 @@
                     <label for="searchEmail" class="form-label">Email Kunde</label>
                     <input type="input" id="searchEmail" class="form-control" name="searchEmail">
                 </div>
-                <button type="submit" class="btn btn-primary d-block m-auto" onclick="searchCustomer(event);">Kunden suchen</button>
+                <button type="submit" class="btn btn-primary d-block m-auto" onclick="getCustomerFromDB(event);">Kunden suchen</button>
             </form>
         </div>
         <div class="col-12 col-xl-6">
             <form id="showCustomer">
                 <div class="mb-3">
                     <label for="vorname" class="form-label">Vorname</label>
-                    <input type="input" id="vorname" class="form-control" name="vorname">
+                    <input type="input" id="vorname" class="form-control" name="vorname" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="nachname" class="form-label">Nachname</label>
-                    <input type="input" id="nachname" class="form-control" name="nachname">
+                    <input type="input" id="nachname" class="form-control" name="nachname" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="input" id="email" class="form-control" name="email">
+                    <input type="input" id="email" class="form-control" name="email" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="strasse" class="form-label">Straße</label>
-                    <input type="input" id="strasse" class="form-control" name="strasse">
+                    <input type="input" id="strasse" class="form-control" name="strasse" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="hausnummer" class="form-label">Hausnummer</label>
-                    <input type="input" id="hausnummer" class="form-control" name="hausnummer">
+                    <input type="input" id="hausnummer" class="form-control" name="hausnummer" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="plz" class="form-label">PLZ</label>
-                    <input type="input" id="plz" class="form-control" name="plz">
+                    <input type="input" id="plz" class="form-control" name="plz" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="wohnort" class="form-label">Wohnort</label>
-                    <input type="input" id="wohnort" class="form-control" name="wohnort">
+                    <input type="input" id="wohnort" class="form-control" name="wohnort" readonly>
                 </div>
-                <button type="submit" class="btn btn-danger d-block m-auto">Kunden löschen</button>
+                <button type="submit" class="btn btn-danger d-block m-auto" onclick="deleteCustomerFromDB(event);">Kunden löschen</button>
             </form>
         </div>
     </div>

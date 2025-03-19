@@ -2,6 +2,8 @@
 
 namespace library;
 
+use PDO;
+
 class Model
 {
 
@@ -90,22 +92,17 @@ class Model
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    /// Alle Special-Gerichte aus der Datenbank holen
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    
-    public function getSpecialFood () {
-        $specialFood = $this->db->prepare("SELECT * FROM product WHERE special = 1");
-        $specialFood->execute();
-        return $specialFood->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
     /// Contest-Bilder Upload
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function uploadImages($userId, $imageURL) {
+        $userId = 1;
+        $stmt = $this->db->prepare("SELECT e_mail FROM customer WHERE ID = ?");
+        $stmt->execute([$userId]);
+        $userEmail = $stmt->fetchColumn();
+
         $stmt = $this->db->prepare("INSERT INTO contest (pic_url, owner_mail, rating, permission) VALUES (?,?,?,?)");
-        $stmt->execute([$imageURL, ("SELECT e_mail FROM customer WHERE ID=$userId"), 0, 0]);
+        $stmt->execute([$imageURL, $userEmail, '0', '0']);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +119,7 @@ class Model
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function getContestImages () {
-        $contestImages = $this->db->prepare("SELECT pic_url FROM contest WHERE permission = 1");
+        $contestImages = $this->db->prepare("SELECT ID, pic_url FROM contest WHERE permission = 1");
         $contestImages->execute();
         return $contestImages->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -142,7 +139,7 @@ class Model
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function addNewFood($foodToBeInserted) {
-        $stmt = $this->db->prepare("INSERT INTO product (ean, name, description, additives, calories, price, special, category, image) VALUES (?,?,?,?,?,?,?,?)");
+        $stmt = $this->db->prepare("INSERT INTO product (ean, name, description, additives, calories, price, special, category, image) VALUES (?,?,?,?,?,?,?,?,?)");
         $stmt->execute(
             [$foodToBeInserted['ean'],
                 $foodToBeInserted['name'],
@@ -160,7 +157,7 @@ class Model
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function updateFood($newFoodData) {
-        $stmt = $this->db->prepare("UPDATE product SET ean=?, name=?, description=?, additives=?, calories=?, price=?, special=?, category=?, image=?");
+        $stmt = $this->db->prepare("UPDATE product SET ean=?, name=?, description=?, additives=?, calories=?, price=?, special=?, category=?, image=? WHERE ID=?");
         $stmt->execute([
             $newFoodData['ean'],
             $newFoodData['name'],
@@ -170,7 +167,8 @@ class Model
             $newFoodData['price'],
             $newFoodData['special'],
             $newFoodData['category'],
-            $newFoodData['image']
+            $newFoodData['image'],
+            $newFoodData['productID']
         ]);
     }
 
@@ -180,7 +178,7 @@ class Model
 
     public function deleteFood($ean) {
         $stmt = $this->db->prepare("DELETE FROM product WHERE ean=?");
-        $stmt->execute($ean);
+        $stmt->execute([$ean]);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,7 +187,7 @@ class Model
 
     public function getCustomer($mail): array {
         $stmt = $this->db->prepare("SELECT name, surname, e_mail, street, postal_code, city FROM customer WHERE e_mail=?");
-        $stmt->execute($mail);
+        $stmt->execute([$mail]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
@@ -199,7 +197,7 @@ class Model
 
     public function deleteCustomer($mail) {
         $stmt = $this->db->prepare("DELETE FROM customer WHERE e_mail=?");
-        $stmt->execute($mail);
+        $stmt->execute([$mail]);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -207,16 +205,26 @@ class Model
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function updateAdminPassword($pwd) {
-        $stmt = $this->db->prepare("UPDATE admin SET password=?");
-        $stmt->execute($pwd);
+        $stmt = $this->db->prepare("UPDATE admin SET password=? WHERE ID=1");
+        $stmt->execute([$pwd['newPassword']]);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Admin-Passwort abfragen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function checkAdminPassword($pwd) {
+        $stmt = $this->db->prepare("SELECT password FROM admin WHERE password = ?");
+        $stmt->execute([$pwd]);
+        return $stmt->fetch();
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     /// Contest-Bilder holen für die Admin-Seite
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function getContestImagesManager(): array {
-        $stmt = $this->db->prepare("SELECT pic_url, owner_mail FROM contest");
+    public function getContestForAdmin(): array {
+        $stmt = $this->db->prepare("SELECT ID, pic_url, owner_mail, rating, permission FROM contest");
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -236,6 +244,6 @@ class Model
 
     public function deleteContestImages($imageURL) {
         $stmt = $this->db->prepare("DELETE FROM contest WHERE oic_url=?");
-        $stmt->execute($imageURL);
+        $stmt->execute([$imageURL]);
     }
 }

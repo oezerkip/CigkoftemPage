@@ -23,7 +23,10 @@ class Controller
     /// Mainpage
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function index() : void {
+    public function index(): void
+    {
+        $foodMenu = $this->model->getFoodData();
+        $contestWinner = $this->model->getContestWinner();
 
         if (isset($_POST['registrationBtn'])) {
             $this->checkRegistration();
@@ -38,18 +41,18 @@ class Controller
         if (isset($_POST['logoutBtn'])) {
             session_destroy();
             $_SESSION = [];
-            $this->view->render("index", []);
+            $this->view->render("index", [
+                'foodMenu' => $foodMenu,
+                'contestWinner' => $contestWinner
+            ]);
             return;
         }
 
-        $foodMenu = $this->model->getFoodData();
-        $specialFood = $this->model->getSpecialFood();
-        //$contestImages = $this->model->getContestImages();
-        //$contestWinner = $this->model->getContestWinner();
+        
 
         $this->view->render('index', [
             'foodMenu' => $foodMenu,
-            'specialFood' => $specialFood
+            'contestWinner' => $contestWinner
         ]);
     }
 
@@ -57,11 +60,13 @@ class Controller
     /// Admin-Page
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function admin(): void {
+    public function admin(): void
+    {
         if (isset($_POST['adminLoginBtn'])) {
             $this->testLogin();
             return;
         }
+
 
         $this->view->render('admin', []);
     }
@@ -70,7 +75,8 @@ class Controller
     /// Impressum-Page
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function impressum() {
+    public function impressum()
+    {
         $this->view->render('impressum', []);
     }
 
@@ -78,7 +84,8 @@ class Controller
     /// Datenschutz-Page
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function datenschutz() {
+    public function datenschutz()
+    {
         $this->view->render('datenschutz', []);
     }
 
@@ -86,15 +93,16 @@ class Controller
     /// AJAX Content Loading
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function loadContent(): void {
+    public function loadContent(): void
+    {
         if (!isset($_GET['content'])) {
             echo "Kein Inhalt angegeben.";
             return;
         }
-    
+
         $content = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['content']); // Sicherheit: Filtert ungültige Zeichen
         $filePath = "templates/content/{$content}.phtml";
-    
+
         if (file_exists($filePath)) {
             ob_start();
             include $filePath;
@@ -111,7 +119,10 @@ class Controller
 
     /*************** Validierung des Anmeldeformulars und DB Insert ***************/
 
-    public function checkRegistration(): void {
+    public function checkRegistration(): void
+    {
+        $foodMenu = $this->model->getFoodData();
+        $contestWinner = $this->model->getContestWinner();
         $formConfig = [
             "vorname" => ["notempty"],
             "nachname" => ["notempty"],
@@ -130,23 +141,31 @@ class Controller
                 $uniqueMail = $this->model->uniqueMailCheck($_POST);
                 if ($uniqueMail) {
                     $this->view->render('index', [
-                        'uniqueEmail' => true
+                        'uniqueEmail' => true,
+                        'foodMenu' => $foodMenu,
+                        'contestWinner' => $contestWinner
                     ]);
                 } else {
                     $this->model->registrationInsert($_POST);
-                    $this->view->render('index', []);
+                    $this->view->render('index', [
+                        'foodMenu' => $foodMenu,
+                        'contestWinner' => $contestWinner
+                    ]);
                 }
             }
         } else {
             $this->view->render('index', [
-                'validationResult' => $validationResult
+                'validationResult' => $validationResult,
+                'foodMenu' => $foodMenu,
+                'contestWinner' => $contestWinner
             ]);
         }
     }
 
     /**************************** Login Check Adminbereich ****************************/
 
-    public function checkAdminLogin(): void {
+    public function checkAdminLogin(): void
+    {
         $formConfig = [
             'email' => ['notempty'],
             'passwort' => ['notempty']
@@ -174,7 +193,10 @@ class Controller
 
     /***************************** Login Check Userbereich *****************************/
 
-    public function checkUserLogin(): void {
+    public function checkUserLogin(): void
+    {
+        $foodMenu = $this->model->getFoodData();
+        $contestWinner = $this->model->getContestWinner();
         $formConfig = [
             "loginEmail" => ["notempty"],
             "loginPasswort" => ["notempty"]
@@ -186,23 +208,236 @@ class Controller
             if ($userId) {
                 $_SESSION['user'] = $userId;
                 if ($_SESSION['user']) {
-                    $this->view->render("index", []);
+                    $this->view->render("index", [
+                        'foodMenu' => $foodMenu,
+                        'contestWinner' => $contestWinner
+                    ]);
                 }
             } else {
                 $this->view->render("index", [
-                    'validationResult' => 'E-Mail oder Passwort ist falsch!'
+                    'validationResult' => 'E-Mail oder Passwort ist falsch!',
+                    'foodMenu' => $foodMenu,
+                    'contestWinner' => $contestWinner
                 ]);
             }
         } else {
             $this->view->render('index', [
-                'validationResult' => $validationResult
+                'validationResult' => $validationResult,
+                'foodMenu' => $foodMenu,
+                'contestWinner' => $contestWinner
             ]);
         }
     }
 
-    public function testLogin() : void {
-        $_SESSION ['admin'] = 1;
+    public function testLogin(): void
+    {
+        $_SESSION['admin'] = 1;
 
         $this->view->render("admin", []);
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Produkte aus der DB holen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    public function getFood(): void
+    {
+        header('Content-Type: application/json; charset=UTF-8'); // Sicherstellen, dass JSON richtig kodiert ist
+
+        $foodMenu = $this->model->getFoodData();
+
+        // Prüfen, ob die Daten leer sind
+        if (empty($foodMenu)) {
+            echo json_encode(["error" => "Keine Daten gefunden"]);
+            return;
+        }
+
+        // Prüfen, ob json_encode fehlschlägt
+        $json = json_encode($foodMenu, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
+
+        if ($json === false) {
+            echo json_encode(["error" => "JSON-Fehler: " . json_last_error_msg()]);
+            return;
+        }
+
+        // Ausgabe des JSON
+        echo $json;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Contest aus der DB holen für Frontend
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    public function getContest(): void
+    {
+        header('Content-Type: application/json; charset=UTF-8'); // Sicherstellen, dass JSON richtig kodiert ist
+
+        $contest = $this->model->getContestImages();
+
+        // Prüfen, ob die Daten leer sind
+        if (empty($contest)) {
+            echo json_encode(["error" => "Keine Daten gefunden"]);
+            return;
+        }
+
+        // Prüfen, ob json_encode fehlschlägt
+        $json = json_encode($contest, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
+
+        if ($json === false) {
+            echo json_encode(["error" => "JSON-Fehler: " . json_last_error_msg()]);
+            return;
+        }
+
+        // Ausgabe des JSON
+        echo $json;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    ///  Contest aus der DB holen für Backend
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function getContestForAdmin(): void
+    {
+        header('Content-Type: application/json; charset=UTF-8'); // Sicherstellen, dass JSON richtig kodiert ist
+
+        $contest = $this->model->getContestForAdmin();
+
+        // Prüfen, ob die Daten leer sind
+        if (empty($contest)) {
+            echo json_encode(["error" => "Keine Daten gefunden"]);
+            return;
+        }
+
+        // Prüfen, ob json_encode fehlschlägt
+        $json = json_encode($contest, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
+
+        if ($json === false) {
+            echo json_encode(["error" => "JSON-Fehler: " . json_last_error_msg()]);
+            return;
+        }
+
+        // Ausgabe des JSON
+        echo $json;
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Contest Image in Datenbank hochladen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    public function uploadContestImage(): void
+    {
+        $imagePath = htmlentities($_GET['imagePath']);
+        $_SESSION['id'] = 1;
+        if (isset($_SESSION['id'])) {
+            echo '
+            <div class="alert alert-success" role="alert">
+                Vielen Dank für dein Dick-Pic ;)
+            </div>
+            ';
+            $this->model->uploadImages($_SESSION['id'], $imagePath);
+        } else {
+            echo '
+            <div class="alert alert-danger" role="alert">
+                Penis zu klein!
+            </div>
+            ';
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Gerichte in die Datenbank hochladen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function addArticleToDB(): void
+    {
+        var_dump(test);
+        $newFood['ean'] = htmlentities($_GET['ean']);
+        $newFood['category'] = htmlentities($_GET['category']);
+        $newFood['name'] = htmlentities($_GET['name']);
+        $newFood['special'] = htmlentities($_GET['special']);
+        $newFood['description'] = htmlentities($_GET['description']);
+        $newFood['additives'] = htmlentities($_GET['additives']);
+        $newFood['calories'] = htmlentities($_GET['calories']);
+        $newFood['price'] = htmlentities($_GET['price']);
+        $newFood['image'] = htmlentities($_GET['image']);
+        $stmt = $this->model->addNewFood($newFood);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Gerichte in der Datenbank aktualisieren
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function updateArticleAtDB(): void
+    {
+        $food['productID'] = htmlentities($_GET['productID']);
+        $food['ean'] = htmlentities($_GET['ean']);
+        $food['category'] = htmlentities($_GET['category']);
+        $food['name'] = htmlentities($_GET['name']);
+        $food['special'] = htmlentities($_GET['special']);
+        $food['description'] = htmlentities($_GET['description']);
+        $food['additives'] = htmlentities($_GET['additives']);
+        $food['calories'] = htmlentities($_GET['calories']);
+        $food['price'] = htmlentities($_GET['price']);
+        $food['image'] = htmlentities($_GET['image']);
+        $stmt = $this->model->updateFood($food);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Gerichte aus der Datenbank löschen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function deleteArticleFromDB(): void
+    {
+        $foodEan = htmlentities($_GET['ean']);
+        $stmt = $this->model->deleteFood($foodEan);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Kunden aus der Datenbank suchen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function getCustomerFromDB(): void {
+        $customer = htmlentities($_GET['searchMail']);
+        $stmt = $this->model->getCustomer($customer);
+
+        // Wenn kein Ergebnis gefunden wurde, kannst du ein leeres Array zurückgeben
+        if ($stmt) {
+            echo json_encode($stmt); // Gebe die Daten als JSON zurück
+        } else {
+            echo json_encode([]); // Falls kein Kunde gefunden wurde
+        }
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Kunden aus der Datenbank löschen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function deleteCustomerFromDB() {
+        $customerEmail = htmlentities($_GET['customerEmail']);
+        $stmt = $this->model->deleteCustomer($customerEmail);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Admin-Passwort aktualsieren
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function updateAdminPassword(){
+        $pwd['currentPassword'] = htmlentities($_GET['currentPassword']);
+        $pwd['newPassword'] = htmlentities($_GET['newPassword']);
+        $pwd['newPasswordRepeat'] = htmlentities($_GET['newPasswordRepeat']);
+
+        $stmt = $this->model->checkAdminPassword($pwd['currentPassword']);
+        if ($stmt['password'] !=  $pwd['currentPassword']) {
+           echo '<div class="alert alert-danger" role="alert">Passwort nicht gefunden!</div>';
+           return;
+        } else {
+           if($pwd['newPassword'] != $pwd['newPasswordRepeat']) {
+                echo '<div class="alert alert-warning" role="alert">Neue Passwörter stimmen nicht überein!</div>';
+                return;
+           } else {
+                $stmt = $this->model->updateAdminPassword($pwd);
+                echo '<div class="alert alert-success" role="alert">Passwort wurde aktualisiert!</div>';
+           }
+        }
+    }
+
+
 }
