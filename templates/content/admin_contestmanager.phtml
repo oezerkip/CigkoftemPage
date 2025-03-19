@@ -1,28 +1,11 @@
-<?php $contest = json_decode(file_get_contents('src/pseudo-contest.json'), true); // Pseudo-Artikel-Datenbank ?>
-
 <div class="container">
     <div class="row justify-content-center">
         <h2 class="text-center">Contest-Verwaltung</h2>
         <div class="col-12">
-            <form>
-                <?php foreach ($contest as $value): ?>
-                    <div class="row mb-3 justify-content-center">
-                        <div class="col">
-                            <input type="text" id="email_<?= $value['id'] ?>" class="form-control" value="<?= $value['email'] ?>">
-                        </div>
-                        <div class="col">
-                            <input type="text" id="image_<?= $value['id'] ?>" class="form-control" value="<?= $value['image'] ?>">
-                        </div>
-                        <div class="col-auto">
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <a class="btn btn-info" href="<?= $value['image'] ?>" data-fancybox><i class="bi bi-eye"></i></a>
-                                <a class="btn btn-success"><i class="bi bi-check-lg"></i></a>
-                                <a class="btn btn-danger"><i class="bi bi-trash3"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </form>
+            <form id="contestForm"></form>
+            <script>
+                getContestItems();
+            </script>
         </div>
     </div>
 </div>
