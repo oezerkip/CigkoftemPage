@@ -157,7 +157,16 @@ class Model
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function updateFood($newFoodData) {
-        $stmt = $this->db->prepare("UPDATE product SET ean=?, name=?, description=?, additives=?, calories=?, price=?, special=?, category=?, image=? WHERE ID=?");
+        $stmt = $this->db->prepare("UPDATE product SET 
+                   ean=?, 
+                   name=?, 
+                   description=?, 
+                   additives=?, 
+                   calories=?, 
+                   price=?, 
+                   special=?, 
+                   category=?, 
+                   image=? WHERE ID=?");
         $stmt->execute([
             $newFoodData['ean'],
             $newFoodData['name'],
