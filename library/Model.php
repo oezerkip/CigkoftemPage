@@ -109,9 +109,9 @@ class Model
     /// Like Button
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function raiseRating($imageURL) {
-        $stmt = $this->db->prepare("UPDATE contest SET rating=(SELECT rating FROM contest WHERE pic_url=$imageURL) + 1");
-        $stmt->execute();
+    public function raiseRating($imageID) {
+        $stmt = $this->db->prepare("UPDATE contest SET rating = (SELECT rating FROM contest WHERE ID = ?) + 1 WHERE ID = ?");
+        $stmt->execute([$imageID, $imageID]);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@ class Model
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function getContestImages () {
-        $contestImages = $this->db->prepare("SELECT ID, pic_url FROM contest WHERE permission = 1");
+        $contestImages = $this->db->prepare("SELECT ID, rating, pic_url FROM contest WHERE permission = 1");
         $contestImages->execute();
         return $contestImages->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -129,7 +129,7 @@ class Model
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function getContestWinner () {
-        $contestWinner = $this->db->prepare("SELECT pic_url FROM contest WHERE rating = (SELECT MAX(rating) FROM contest) LIMIT 1");
+        $contestWinner = $this->db->prepare("SELECT pic_url FROM contest WHERE permission = 1 ORDER BY rating DESC LIMIT 1");
         $contestWinner->execute();
         return $contestWinner->fetch(\PDO::FETCH_ASSOC);
     }
@@ -186,7 +186,7 @@ class Model
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function getCustomer($mail): array {
-        $stmt = $this->db->prepare("SELECT name, surname, e_mail, street, postal_code, city FROM customer WHERE e_mail=?");
+        $stmt = $this->db->prepare("SELECT * FROM customer WHERE e_mail=?");
         $stmt->execute([$mail]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
@@ -230,20 +230,23 @@ class Model
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    /// Bilderfreigabe
-    //////////////////////////////////////////////////////////////////////////////////////////////
-
-    public function setPermission() {
-        $stmt = $this->db->prepare("UPDATE contest SET permission=1");
-        $stmt->execute();
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
     /// Contest-Bilder löschen
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function deleteContestImages($imageURL) {
-        $stmt = $this->db->prepare("DELETE FROM contest WHERE oic_url=?");
-        $stmt->execute([$imageURL]);
+    public function deleteContestImages($contestItemID) {
+        $stmt = $this->db->prepare("DELETE FROM contest WHERE ID=?");
+        $stmt->execute([$contestItemID]);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Contest Freigabe für Bilder
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function acceptContestItem($contestData) {
+        $stmt = $this->db->prepare("UPDATE contest SET permission=? WHERE ID=?");
+        $stmt->execute([
+            $contestData['permission'],
+            $contestData['ID']
+        ]);
     }
 }

@@ -13,7 +13,7 @@ class DBConnector
     public static function getInstance(): \PDO{
         if (!self::$instance){
             self::$instance = new \PDO(
-                sprintf('mysql:host=%s;dbname=%s',self::$config['host'],self::$config['dbname']),
+                sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4',self::$config['host'],self::$config['dbname']),
                 self::$config['user'],
                 self::$config['password']);
         }

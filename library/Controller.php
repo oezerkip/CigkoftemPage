@@ -63,7 +63,7 @@ class Controller
     public function admin(): void
     {
         if (isset($_POST['adminLoginBtn'])) {
-            $this->testLogin();
+            $this->checkAdminLogin();
             return;
         }
 
@@ -149,7 +149,8 @@ class Controller
                     $this->model->registrationInsert($_POST);
                     $this->view->render('index', [
                         'foodMenu' => $foodMenu,
-                        'contestWinner' => $contestWinner
+                        'contestWinner' => $contestWinner,
+                        'registration_success' => 'Registration erfolgreich!'
                     ]);
                 }
             }
@@ -229,12 +230,15 @@ class Controller
         }
     }
 
-    public function testLogin(): void
-    {
-        $_SESSION['admin'] = 1;
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Testfunktion um Adminlogin zu umgehen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // public function testLogin(): void
+    // {
+    //     $_SESSION['admin'] = 1;
 
-        $this->view->render("admin", []);
-    }
+    //     $this->view->render("admin", []);
+    // }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     /// Produkte aus der DB holen
@@ -348,7 +352,6 @@ class Controller
 
     public function addArticleToDB(): void
     {
-        var_dump(test);
         $newFood['ean'] = htmlentities($_GET['ean']);
         $newFood['category'] = htmlentities($_GET['category']);
         $newFood['name'] = htmlentities($_GET['name']);
@@ -358,7 +361,7 @@ class Controller
         $newFood['calories'] = htmlentities($_GET['calories']);
         $newFood['price'] = htmlentities($_GET['price']);
         $newFood['image'] = htmlentities($_GET['image']);
-        $stmt = $this->model->addNewFood($newFood);
+        $this->model->addNewFood($newFood);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -377,7 +380,7 @@ class Controller
         $food['calories'] = htmlentities($_GET['calories']);
         $food['price'] = htmlentities($_GET['price']);
         $food['image'] = htmlentities($_GET['image']);
-        $stmt = $this->model->updateFood($food);
+        $this->model->updateFood($food);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -387,32 +390,33 @@ class Controller
     public function deleteArticleFromDB(): void
     {
         $foodEan = htmlentities($_GET['ean']);
-        $stmt = $this->model->deleteFood($foodEan);
+        $this->model->deleteFood($foodEan);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     /// Kunden aus der Datenbank suchen
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function getCustomerFromDB(): void {
+    public function getCustomerFromDB(): void
+    {
         $customer = htmlentities($_GET['searchMail']);
         $stmt = $this->model->getCustomer($customer);
-
-        // Wenn kein Ergebnis gefunden wurde, kannst du ein leeres Array zurückgeben
         if ($stmt) {
             echo json_encode($stmt); // Gebe die Daten als JSON zurück
         } else {
-            echo json_encode([]); // Falls kein Kunde gefunden wurde
+            echo json_encode(["message" => "Kein Kunde gefunden"]); // Rückmeldung, falls kein Kunde gefunden wurde
         }
     }
-    
+
+
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     /// Kunden aus der Datenbank löschen
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     public function deleteCustomerFromDB() {
         $customerEmail = htmlentities($_GET['customerEmail']);
-        $stmt = $this->model->deleteCustomer($customerEmail);
+        $this->model->deleteCustomer($customerEmail);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -433,11 +437,39 @@ class Controller
                 echo '<div class="alert alert-warning" role="alert">Neue Passwörter stimmen nicht überein!</div>';
                 return;
            } else {
-                $stmt = $this->model->updateAdminPassword($pwd);
+                $this->model->updateAdminPassword($pwd);
                 echo '<div class="alert alert-success" role="alert">Passwort wurde aktualisiert!</div>';
            }
         }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Berechtigung für Contest setzen
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function manageContestItem() {
+        $contestData['ID'] = (int) $_GET['contestItemID'];
+        $contestData['actionType'] = $_GET['actionType'];
+        if (isset($contestData['ID']) && isset($contestData['actionType'])) {
+            if($contestData['actionType'] === 'access') {
+                $contestData['permission'] = 1;
+                $this->model->acceptContestItem($contestData);
+            } else if ($contestData['actionType'] === 'delete') {
+                $this->model->deleteContestImages($contestData['ID']);
+            }
+            
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// Rating für Contest-Item erhöhen (Like-Button)
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function raiseRating() {
+        $like['ID'] = (int) $_GET['ID'];
+        if (isset($like['ID'])) {
+            $this->model->raiseRating($like['ID']);
+        }
+    }
 
 }

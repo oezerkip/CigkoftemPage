@@ -290,6 +290,7 @@ function getContestItems() {
     contestForm.append(`
       <div class="row mb-3 justify-content-center">
           <div class="col">
+              <input type="hidden" id="contestItemID" value="${element.ID}">
               <input type="text" id="email_${element.ID}" class="form-control" value="${element.email}">
           </div>
           <div class="col">
@@ -298,7 +299,7 @@ function getContestItems() {
           <div class="col-auto">
               <div class="btn-group" role="group" aria-label="Basic example">
                   <a class="btn btn-info" href="${element.pic_url}" data-fancybox><i class="bi bi-eye"></i></a>
-                  <a class="btn btn-success"><i class="bi bi-check-lg"></i></a>
+                  <a class="btn btn-success"><i class="bi bi-check-lg" onclick="acceptContestItem(event)"></i></a>
                   <a class="btn btn-danger"><i class="bi bi-trash3"></i></a>
               </div>
           </div>
@@ -308,7 +309,20 @@ function getContestItems() {
 }
 
 // Function & Logik für -> acceptContestItem()
-//...
+function acceptContestItem(event) {
+  event.preventDefault();
+  $.ajax({
+    type: "GET",
+    url: "index.php?action=acceptContestItem",
+    data: {
+      contestID: $("#contestItemID").val(),
+    },
+    dataType: "html",
+    success: function (response) {
+      getContestForAdmin();
+    },
+  });
+}
 
 // Function für -> deleteContestItem()
 //... 

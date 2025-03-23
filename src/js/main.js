@@ -2,14 +2,17 @@
 // Product-Datenbank
 // ----------------------------------------------------------------------
 let product_database = [];
-function getProductDatabase() {
+function getProductDatabase(callback) {
   $.ajax({
     url: "index.php?action=getFood", // Die URL zum Controller
     type: "GET", // Oder 'POST', falls gewünscht
     dataType: "json", // Erwartete Antwort als JSON
     success: function (response) {
       product_database = response;
-      console.log("Produkt-Datenbank: ", product_database);
+      // console.log("Produkt-Datenbank: ", product_database);
+      if (typeof callback === "function") {
+        callback();
+      }
     },
     error: function (xhr, status, error) {
       console.error("Fehler beim Abrufen der Daten:", error);
@@ -24,7 +27,7 @@ $(document).ready(function () {
 // Contest-Datenbank
 // ----------------------------------------------------------------------
 let contest_database = [];
-function getContest() {
+function getContest(callback) {
   $.ajax({
     url: "index.php?action=getContest", // Die URL zum Controller
     type: "GET", // Oder 'POST', falls gewünscht
@@ -32,16 +35,19 @@ function getContest() {
     success: function (response) {
       contest_database = response;
       console.log("Contest-Datenbank: ", contest_database);
+      if (typeof callback === "function") {
+        callback();
+      }
     },
     error: function (xhr, status, error) {
       console.error("Fehler beim Abrufen der Daten:", error);
     },
-  }).done(function () {
-    contestCarousel();
   });
 }
 $(document).ready(function () {
-  getContest();
+  getContest(function(){
+    contestCarousel();
+  });
 });
 
 // ----------------------------------------------------------------------
@@ -49,55 +55,67 @@ $(document).ready(function () {
 // ----------------------------------------------------------------------
 function contestCarousel() {
   const owlContest = $(".contest-carousel");
-  owlContest.owlCarousel("destroy").empty();
-  owlContest.owlCarousel({
-    responsive: {
-      0: {
-        items: 2,
+  if (owlContest.length > 0) {
+    owlContest.owlCarousel("destroy").empty();
+    owlContest.owlCarousel({
+      responsive: {
+        0: {
+          items: 2,
+        },
+        600: {
+          items: 4,
+        },
       },
-      600: {
-        items: 4,
-      },
-    },
-    center: true,
-    margin: 10,
-    nav: true,
-    dots: false,
-    autoplay: true,
-    autoplayTimeout: 4000,
-    autoplayHoverPause: true,
-    navText: [
-      '<i class="bi bi-chevron-left"></i>',
-      '<i class="bi bi-chevron-right"></i>',
-    ],
-  });
-  contest_database.forEach((element) => {
-    let item = `
-      <div id="contest_item_${element.ID}" class="item text-center">
-          <a href="${element.pic_url}" class="image" data-fancybox>
-              <img src="${element.pic_url}" class="img-fluid rounded" alt="food" />
-          </a>
-          <a href="" class="like">
-              <i class="bi bi-heart"></i>
-              <i class="bi bi-heart-fill"></i>
-          </a>
-      </div> 
-    `;
-    owlContest.trigger("add.owl.carousel", [$(item)]);
-  });
-  owlContest.trigger("refresh.owl.carousel");
+      center: true,
+      margin: 10,
+      nav: true,
+      dots: false,
+      autoplay: true,
+      autoplayTimeout: 4000,
+      autoplayHoverPause: true,
+      navText: [
+        '<i class="bi bi-chevron-left"></i>',
+        '<i class="bi bi-chevron-right"></i>',
+      ],
+    });
+    contest_database.forEach((element) => {
+      let item = `
+        <div data-contestid="${element.ID}" class="item text-center">
+            <a href="${element.pic_url}" class="image" data-fancybox>
+                <img src="${element.pic_url}" class="img-fluid rounded" alt="food" />
+            </a>
+            <a href="" class="like" onclick="raiseRating(event)">
+                <i class="bi bi-heart"></i>
+                <i class="bi bi-heart-fill"></i>
+            </a>
+        </div> 
+      `;
+      owlContest.trigger("add.owl.carousel", [$(item)]);
+    });
+    owlContest.trigger("refresh.owl.carousel");
+  }
 }
 
 // ----------------------------------------------------------------------
-// like-button
+// Rating für Contest-Item erhöhen (Like-Button)
 // ----------------------------------------------------------------------
-$(document).ready(function () {
-  $(".like").click(function (event) {
-    event.preventDefault(); // Verhindert das Standardverhalten (Link-Klick)
-    event.stopPropagation(); // Stoppt das Event, damit der übergeordnete Link nicht klickt
-    $(this).toggleClass("selected");
+function raiseRating(event) {
+  event.preventDefault(); // Verhindert das Standardverhalten (Link-Klick)
+  event.stopPropagation(); // Stoppt das Event, damit der übergeordnete Link nicht klickt
+  const contestItem = $(event.target).closest(".item");
+  $.ajax({
+    type: "GET",
+    url: "index.php?action=raiseRating",
+    data: {
+      ID: $(contestItem).data("contestid"),
+    },
+    dataType: "html",
+    success: function (response) {
+      $(".like", contestItem).toggleClass("selected");
+      getContest();
+    },
   });
-});
+}
 
 // ----------------------------------------------------------------------
 // Contest-Upload

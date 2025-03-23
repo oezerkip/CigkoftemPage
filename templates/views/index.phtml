@@ -24,9 +24,19 @@
         <?php require('templates/content/contest.phtml'); ?>
     </section>
 
-    <section id="login" class="space">
-        <?php require('templates/content/user_registration.phtml'); ?>
-    </section>
+    <?php if (!isset($_SESSION['user'])): ?>
+        <?php if (isset($data['registration_success'])): ?>
+            <div class="alert alert-success alert-dismissible fade show fixed-top col-lg-6 mt-5 mx-auto" role="alert">
+                <?= $data['registration_success'] ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php else: ?>
+            <section id="login" class="space">
+                <?php require('templates/content/user_registration.phtml'); ?>
+            </section>
+        <?php endif; ?>
+    <?php endif; ?>
+
 
     <section id="contact" class="space-top">
         <?php require('templates/content/contact.phtml'); ?>
